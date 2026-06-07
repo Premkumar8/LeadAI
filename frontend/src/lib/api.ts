@@ -44,7 +44,7 @@ export const api = {
   // Authentication
   auth: {
     register: (body: any) => apiFetch("/auth/register", { method: "POST", json: body }),
-    login: async (username: string, password: str) => {
+    login: async (username: string, password: string) => {
       const formData = new URLSearchParams();
       formData.append("username", username);
       formData.append("password", password);
@@ -140,7 +140,7 @@ export const api = {
   ai: {
     chat: (body: { messages: Array<{ role: string; content: string }> }) => 
       apiFetch("/ai/assistant", { method: "POST", json: body }),
-    downloadProposal: async (body: { client_name: string; services: str; pricing: str; timeline: str }) => {
+    downloadProposal: async (body: { client_name: string; services: string; pricing: string; timeline: string }) => {
       const token = localStorage.getItem("avanta_token");
       const response = await fetch(`${BASE_URL}/ai/proposal`, {
         method: "POST",
