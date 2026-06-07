@@ -232,14 +232,14 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
           </div>
           <button
             onClick={toggleTheme}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 mb-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-slate-900 border border-slate-900 transition-colors duration-200 cursor-pointer"
+            className="lg:hidden w-full flex items-center justify-center gap-2 px-4 py-2 mb-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-slate-900 border border-slate-900 transition-colors duration-200 cursor-pointer"
           >
             {theme === "dark" ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-cyan-400" />}
             <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           </button>
           <button
             onClick={handleLogout}
-            className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-450 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 border border-slate-900 transition-colors duration-200 cursor-pointer"
+            className="lg:hidden w-full flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold text-slate-455 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 border border-slate-900 transition-colors duration-200 cursor-pointer"
           >
             <LogOut size={14} />
             <span>Sign Out Session</span>
@@ -248,7 +248,26 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col lg:pl-64 min-w-0">
+      <div className="flex-1 flex flex-col lg:pl-64 min-w-0 relative">
+        {/* Desktop Quick Actions (Top Right) */}
+        <div className="hidden lg:flex absolute top-6 right-8 items-center gap-3 z-30">
+          <button
+            onClick={toggleTheme}
+            className="p-2.5 rounded-xl text-slate-400 hover:bg-slate-900/80 hover:text-slate-100 border border-slate-900/60 bg-slate-950/40 backdrop-blur-md transition-colors duration-200 cursor-pointer"
+            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {theme === "dark" ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-cyan-400" />}
+          </button>
+          
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 border border-slate-900/60 bg-slate-950/40 backdrop-blur-md transition-all duration-200 cursor-pointer"
+          >
+            <LogOut size={14} />
+            <span>Sign Out</span>
+          </button>
+        </div>
+
         <main className="flex-1 p-6 lg:p-8 pt-20 lg:pt-8 overflow-y-auto">
           {children}
         </main>
