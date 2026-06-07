@@ -248,27 +248,47 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       </aside>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col lg:pl-64 min-w-0 relative">
-        {/* Desktop Quick Actions (Top Right) */}
-        <div className="hidden lg:flex absolute top-6 right-8 items-center gap-3 z-30">
-          <button
-            onClick={toggleTheme}
-            className="p-2.5 rounded-xl text-slate-400 hover:bg-slate-900/80 hover:text-slate-100 border border-slate-900/60 bg-slate-950/40 backdrop-blur-md transition-colors duration-200 cursor-pointer"
-            title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          >
-            {theme === "dark" ? <Sun size={16} className="text-amber-400" /> : <Moon size={16} className="text-cyan-400" />}
-          </button>
+      <div className="flex-1 flex flex-col lg:pl-64 min-w-0">
+        {/* Desktop Top Header */}
+        <header className="hidden lg:flex h-16 border-b border-slate-900 bg-slate-950/40 backdrop-blur-md items-center justify-between px-8 sticky top-0 z-35">
+          <div className="flex items-center">
+            <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
+              {pathname === "/dashboard" ? "Overview" : pathname.substring(1).replace("-", " ")}
+            </span>
+          </div>
           
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-semibold text-slate-400 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 border border-slate-900/60 bg-slate-950/40 backdrop-blur-md transition-all duration-200 cursor-pointer"
-          >
-            <LogOut size={14} />
-            <span>Sign Out</span>
-          </button>
-        </div>
+          <div className="flex items-center gap-4">
+            {/* Theme Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="p-2.5 rounded-xl text-slate-400 hover:bg-slate-900 hover:text-slate-100 border border-slate-900/60 bg-slate-950/50 transition-colors duration-200 cursor-pointer"
+              title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+            >
+              {theme === "dark" ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-cyan-400" />}
+            </button>
+            
+            <div className="h-5 w-px bg-slate-900"></div>
 
-        <main className="flex-1 p-6 lg:p-8 pt-20 lg:pt-8 overflow-y-auto">
+            {/* Logged in user info */}
+            <div className="flex flex-col items-end justify-center">
+              <span className="text-xs font-bold text-slate-200">{user?.name || "Agent User"}</span>
+              <span className="text-[10px] text-slate-500">{user?.email || "admin@avanta.ai"}</span>
+            </div>
+
+            <div className="h-5 w-px bg-slate-900"></div>
+
+            {/* Logout Button */}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-350 hover:bg-red-500/10 hover:text-red-400 hover:border-red-500/20 border border-slate-900/65 bg-slate-950/50 transition-all duration-200 cursor-pointer"
+            >
+              <LogOut size={13} />
+              <span>Sign Out</span>
+            </button>
+          </div>
+        </header>
+
+        <main className="flex-1 p-6 lg:p-8 pt-20 lg:pt-6 overflow-y-auto">
           {children}
         </main>
       </div>
