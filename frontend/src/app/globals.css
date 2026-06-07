@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  --bg-main: #f8fafc;
+  --bg-sidebar: #ffffff;
+  --bg-card: #ffffff;
+  --bg-input: #f1f5f9;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-bright: #0f172a;
+  --border-card: #e2e8f0;
+  --border-input: #cbd5e1;
+  --bg-active: #f1f5f9;
+  --glow-opacity: 0.04;
+}
+
+.dark {
+  --bg-main: #030712;
+  --bg-sidebar: #080f25;
+  --bg-card: #090f25;
+  --bg-input: #030712;
+  --text-main: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-bright: #ffffff;
+  --border-card: #1e293b;
+  --border-input: #334155;
+  --bg-active: #1e293b;
+  --glow-opacity: 0.15;
+}
+
+@theme {
+  --color-cyan-500: #06b6d4;
+  --color-cyan-400: #22d3ee;
+  --color-cyan-600: #0891b2;
+  --color-teal-500: #14b8a6;
+  --color-teal-400: #2dd4bf;
+  
+  /* Redefining slate colors for theme dynamic mapping */
+  --color-slate-950: var(--bg-main);
+  --color-slate-925: var(--bg-sidebar);
+  --color-slate-900: var(--bg-card);
+  --color-slate-850: var(--border-card);
+  --color-slate-800: var(--border-card);
+  
+  --color-slate-100: var(--text-bright);
+  --color-slate-200: var(--text-main);
+  --color-slate-300: var(--text-main);
+  --color-slate-350: var(--text-main);
+  --color-slate-400: var(--text-muted);
+  --color-slate-450: var(--text-muted);
+  --color-slate-500: var(--text-muted);
+  --color-slate-550: var(--text-muted);
+  --color-slate-600: var(--text-muted);
+  --color-slate-650: var(--text-muted);
+  
+  --color-white: var(--text-bright);
+  
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-scale-in: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  overflow-x: hidden;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Custom Scrollbar Styles for Glassmorphic Look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(6, 182, 212, var(--glow-opacity));
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(6, 182, 212, calc(var(--glow-opacity) * 2));
+}
+
+/* Glow Utilities */
+.shadow-cyan-glow {
+  box-shadow: 0 0 15px -3px rgba(6, 182, 212, var(--glow-opacity));
+}
+
+.shadow-teal-glow {
+  box-shadow: 0 0 15px -3px rgba(20, 184, 166, var(--glow-opacity));
+}
+
+.shadow-neon-accent {
+  box-shadow: 0 0 20px -2px rgba(6, 182, 212, var(--glow-opacity)), 0 0 10px -1px rgba(20, 184, 166, calc(var(--glow-opacity) * 0.7));
+}

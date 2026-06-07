@@ -1,0 +1,32 @@
+# Root .gitignore for Avanta SaaS monorepo
+
+# ===== Python / Backend =====
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/venv/
+backend/.env
+backend/*.egg-info/
+backend/dist/
+backend/build/
+
+# ===== Node / Frontend =====
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/.env
+frontend/.env.local
+frontend/.env.production
+frontend/.env.development
+frontend/.vercel/
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# ===== Misc =====
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-error.log*
+.aider*
+servers.json
