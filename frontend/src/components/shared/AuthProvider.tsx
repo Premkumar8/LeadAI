@@ -21,7 +21,8 @@ import {
   X,
   Sun,
   Moon,
-  Receipt
+  Receipt,
+  FolderOpen
 } from "lucide-react";
 import { api } from "@/lib/api";
 
@@ -93,8 +94,11 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       const txs = await api.transactions.list();
       const unpaid = txs.filter((t: any) => t.status === "Unpaid").length;
       setUnpaidCount(unpaid);
-    } catch (err) {
-      console.error("Failed to fetch unpaid transactions for badge:", err);
+    } catch (err: any) {
+      // Quietly ignore token validation errors (handled by the main session verifier)
+      if (!err.message?.includes("credentials") && !err.message?.includes("401")) {
+        console.error("Failed to fetch unpaid transactions for badge:", err);
+      }
     }
   };
 
@@ -134,6 +138,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     { name: "Kanban Board", href: "/pipeline", icon: KanbanSquare },
     { name: "Companies", href: "/companies", icon: Building2 },
     { name: "Contacts", href: "/contacts", icon: Contact2 },
+    { name: "Company Projects", href: "/projects", icon: FolderOpen },
     { name: "Meetings AI", href: "/meetings", icon: Video },
     { name: "Action Tasks", href: "/tasks", icon: CheckSquare },
     { name: "AI Sales Assistant", href: "/assistant", icon: Bot, highlight: true },

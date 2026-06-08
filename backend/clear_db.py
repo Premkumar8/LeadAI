@@ -1,6 +1,6 @@
 from app.core.database import SessionLocal
 from app.core.security import get_password_hash
-from app.models.crm import User, Company, Contact, Lead, Activity, Meeting, Email, Task, AI_Insight, Transaction
+from app.models.crm import User, Company, Contact, Lead, Activity, Meeting, Email, Task, AI_Insight, Transaction, Project
 
 def clear_all_data():
     print("Connecting to database...")
@@ -10,6 +10,7 @@ def clear_all_data():
         
         # Delete dependent tables first due to foreign keys
         deleted_insights = db.query(AI_Insight).delete()
+        deleted_projects = db.query(Project).delete()
         deleted_txs = db.query(Transaction).delete()
         deleted_tasks = db.query(Task).delete()
         deleted_emails = db.query(Email).delete()

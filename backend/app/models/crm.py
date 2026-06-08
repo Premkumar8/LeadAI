@@ -1,6 +1,6 @@
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import Column, String, DateTime, ForeignKey, Integer, Float, Boolean, Text
+from sqlalchemy import Column, String, DateTime, ForeignKey, Integer, Float, Boolean, Text, Table
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
@@ -20,6 +20,14 @@ class User(Base):
     # Relationships
     assigned_leads = relationship("Lead", back_populates="assigned_user")
 
+
+# Association table for Many-to-Many mapping between Company and Project
+company_projects = Table(
+    "company_projects",
+    Base.metadata,
+    Column("company_id", UUID(as_uuid=True), ForeignKey("companies.id", ondelete="CASCADE"), primary_key=True),
+    Column("project_id", UUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), primary_key=True)
+)
 
 class Company(Base):
     __tablename__ = "companies"
@@ -41,6 +49,7 @@ class Company(Base):
     leads = relationship("Lead", back_populates="company", cascade="all, delete-orphan")
     ai_insights = relationship("AI_Insight", back_populates="company", cascade="all, delete-orphan")
     transactions = relationship("Transaction", back_populates="company", cascade="all, delete-orphan")
+    projects = relationship("Project", secondary=company_projects, back_populates="companies")
 
 
 class Contact(Base):
@@ -160,3 +169,19 @@ class Transaction(Base):
 
     # Relationships
     company = relationship("Company", back_populates="transactions")
+
+
+class Project(Base):
+    __tablename__ = "projects"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(255), nullable=False)
+    description = Column(Text, nullable=True)
+    cost = Column(Float, default=0.0)
+    status = Column(String(50), default="Planning")  # Planning, In Progress, Completed, On Hold
+    start_date = Column(DateTime, nullable=True)
+    end_date = Column(DateTime, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    # Relationships
+    companies = relationship("Company", secondary=company_projects, back_populates="projects")

@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime, timezone, timedelta
 from app.core.database import SessionLocal, Base, engine
 from app.core.security import get_password_hash
-from app.models.crm import User, Company, Contact, Lead, Activity, Meeting, Email, Task, AI_Insight, Transaction
+from app.models.crm import User, Company, Contact, Lead, Activity, Meeting, Email, Task, AI_Insight, Transaction, Project
 
 def seed_db():
     # 0. Ensure tables exist before seeding
@@ -22,6 +22,7 @@ def seed_db():
     # 1. Clean existing records to prevent unique constraints issues
     print("Clearing existing records...")
     db.query(AI_Insight).delete()
+    db.query(Project).delete()
     db.query(Transaction).delete()
     db.query(Task).delete()
     db.query(Email).delete()
@@ -230,6 +231,65 @@ def seed_db():
         )
         db.add(transaction)
         
+    db.commit()
+
+    # 11. Create Projects & Link to Companies (Many-to-Many)
+    print("Seeding Projects and mapping to Companies...")
+    projects_setup = [
+        {
+            "name": "Database Migration Service",
+            "desc": "Scale database backend to Neon Serverless PostgreSQL and optimize pgvector indices.",
+            "cost": 1500000.0,
+            "status": "In Progress",
+            "days_ago": 15,
+            "days_duration": 45,
+            "companies": [companies[0], companies[1]]
+        },
+        {
+            "name": "Next.js Admin Dashboard Layout",
+            "desc": "Design and build a custom high-fidelity CRM layout with analytics hooks and Tailwind components.",
+            "cost": 850000.0,
+            "status": "Completed",
+            "days_ago": 30,
+            "days_duration": 30,
+            "companies": [companies[1], companies[2], companies[4]]
+        },
+        {
+            "name": "Custom Vector Search Integrations",
+            "desc": "Develop and deploy localized embeddings pipeline and cosine similarity lookup APIs.",
+            "cost": 1200000.0,
+            "status": "Planning",
+            "days_ago": 2,
+            "days_duration": 60,
+            "companies": [companies[0], companies[8]]
+        },
+        {
+            "name": "SaaS Platform Licensing Key",
+            "desc": "Core platform enterprise seat subscription for data synchronization workflows.",
+            "cost": 450000.0,
+            "status": "In Progress",
+            "days_ago": 10,
+            "days_duration": 365,
+            "companies": [companies[4], companies[8]]
+        }
+    ]
+
+    for ps in projects_setup:
+        start = datetime.now(timezone.utc) - timedelta(days=ps["days_ago"])
+        end = start + timedelta(days=ps["days_duration"])
+        project = Project(
+            name=ps["name"],
+            description=ps["desc"],
+            cost=ps["cost"],
+            status=ps["status"],
+            start_date=start,
+            end_date=end
+        )
+        # Map companies
+        for comp in ps["companies"]:
+            project.companies.append(comp)
+        db.add(project)
+
     db.commit()
     db.close()
     print("Database seeding completed successfully.")

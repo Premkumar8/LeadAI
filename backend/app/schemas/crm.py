@@ -83,12 +83,29 @@ class CompanyUpdate(BaseModel):
     lead_score: Optional[int] = None
     ai_summary: Optional[str] = None
 
+
+# --- PROJECT MINI SCHEMA ---
+class ProjectResponseMini(BaseModel):
+    id: UUID
+    name: str
+    description: Optional[str] = None
+    cost: float
+    status: str
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
 class CompanyResponse(CompanyBase):
     id: UUID
     lead_score: int
     ai_summary: Optional[str] = None
     created_at: datetime
     contacts: List[ContactResponse] = []
+    projects: List[ProjectResponseMini] = []
 
     class Config:
         from_attributes = True
@@ -199,7 +216,7 @@ class LeadResponse(LeadBase):
     company_id: UUID
     assigned_user_id: Optional[UUID] = None
     created_at: datetime
-    company: CompanyBase
+    company: CompanyResponse
     assigned_user: Optional[UserResponse] = None
 
     class Config:
@@ -254,6 +271,35 @@ class TransactionResponse(TransactionBase):
     company_id: UUID
     created_at: datetime
     company: CompanyBase
+
+    class Config:
+        from_attributes = True
+
+
+# --- FULL PROJECT SCHEMAS ---
+class ProjectBase(BaseModel):
+    name: str
+    description: Optional[str] = None
+    cost: float = 0.0
+    status: str = "Planning"
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+
+class ProjectCreate(ProjectBase):
+    pass
+
+class ProjectUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    cost: Optional[float] = None
+    status: Optional[str] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+
+class ProjectResponse(ProjectBase):
+    id: UUID
+    created_at: datetime
+    companies: List[CompanyResponse] = []
 
     class Config:
         from_attributes = True

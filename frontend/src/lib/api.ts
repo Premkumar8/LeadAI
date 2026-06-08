@@ -169,5 +169,18 @@ export const api = {
     update: (id: string, body: any) => apiFetch(`/transactions/${id}`, { method: "PUT", json: body }),
     delete: (id: string) => apiFetch(`/transactions/${id}`, { method: "DELETE" }),
   },
+
+  // Projects (Many-to-Many Company Projects)
+  projects: {
+    list: () => apiFetch("/projects/"),
+    get: (id: string) => apiFetch(`/projects/${id}`),
+    create: (body: any) => apiFetch("/projects/", { method: "POST", json: body }),
+    update: (id: string, body: any) => apiFetch(`/projects/${id}`, { method: "PUT", json: body }),
+    delete: (id: string) => apiFetch(`/projects/${id}`, { method: "DELETE" }),
+    linkCompany: (projectId: string, companyId: string) => 
+      apiFetch(`/projects/${projectId}/companies/${companyId}`, { method: "POST" }),
+    unlinkCompany: (projectId: string, companyId: string) => 
+      apiFetch(`/projects/${projectId}/companies/${companyId}`, { method: "DELETE" }),
+  },
 };
 

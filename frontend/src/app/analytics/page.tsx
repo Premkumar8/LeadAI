@@ -54,21 +54,35 @@ export default function AnalyticsPage() {
       const matched = leads.find(l => l.id === id);
       if (matched) {
         setProposalClient(matched.company.company_name);
-        setProposalPricing(`₹${matched.estimated_value.toLocaleString()} One-time fee`);
         
-        try {
-          const allTasks = await api.tasks.list();
-          const leadTasks = allTasks.filter((t: any) => t.lead_id === id);
-          if (leadTasks.length > 0) {
-            const scopeText = leadTasks
-              .map((t: any, index: number) => `Phase ${index + 1}: ${t.title}`)
-              .join("\n");
-            setProposalScope(scopeText);
-          } else {
-            setProposalScope("Phase 1: Discovery and initial architecture setup.\nPhase 2: Database Migration & Next.js dashboard hooks implementation.\nPhase 3: Custom vector search indices optimization and final validation.");
+        const companyProjects = matched.company.projects || [];
+        if (companyProjects.length > 0) {
+          // Calculate total cost of projects
+          const totalCost = companyProjects.reduce((acc: number, curr: any) => acc + (curr.cost || 0), 0);
+          setProposalPricing(`₹${totalCost.toLocaleString()} Total Project Cost`);
+          
+          // Generate scope text from projects
+          const scopeText = companyProjects
+            .map((p: any, idx: number) => `Phase ${idx + 1}: ${p.name}\n- ${p.description || "Core deliverables implementation"}`)
+            .join("\n\n");
+          setProposalScope(scopeText);
+        } else {
+          // Fallback to estimated value and tasks
+          setProposalPricing(`₹${matched.estimated_value.toLocaleString()} One-time fee`);
+          try {
+            const allTasks = await api.tasks.list();
+            const leadTasks = allTasks.filter((t: any) => t.lead_id === id);
+            if (leadTasks.length > 0) {
+              const scopeText = leadTasks
+                .map((t: any, index: number) => `Phase ${index + 1}: ${t.title}`)
+                .join("\n");
+              setProposalScope(scopeText);
+            } else {
+              setProposalScope("Phase 1: Discovery and initial architecture setup.\nPhase 2: Database Migration & Next.js dashboard hooks implementation.\nPhase 3: Custom vector search indices optimization and final validation.");
+            }
+          } catch (taskErr) {
+            console.error("Error retrieving tasks for proposal compiler:", taskErr);
           }
-        } catch (taskErr) {
-          console.error("Error retrieving tasks for proposal compiler:", taskErr);
         }
       }
     } catch (err) {
