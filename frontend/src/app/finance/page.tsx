@@ -182,7 +182,7 @@ export default function FinancePage() {
     return (
       <div className="h-[70vh] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-cyan-500 mx-auto mb-3" />
+          <Loader2 className="h-8 w-8 animate-spin text-amber-500 mx-auto mb-3" />
           <p className="text-slate-400 text-sm">Loading ledger sheets...</p>
         </div>
       </div>
@@ -195,7 +195,7 @@ export default function FinancePage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-900 pb-6">
         <div>
           <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-            <Receipt className="text-cyan-400" />
+            <Receipt className="text-amber-400" />
             <span>Credit & Debit Finance Ledger</span>
           </h1>
           <p className="text-slate-400 text-sm mt-1">
@@ -210,7 +210,7 @@ export default function FinancePage() {
               setShowAddModal(true);
             }
           }}
-          className="px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-cyan-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Record Transaction</span>
@@ -256,11 +256,11 @@ export default function FinancePage() {
         <div className="bg-slate-900/20 border border-slate-900 p-4 rounded-xl flex items-center justify-between">
           <div>
             <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Paid Credits (Revenue)</span>
-            <span className="text-lg font-black text-cyan-400 flex items-center gap-0.5">
+            <span className="text-lg font-black text-amber-400 flex items-center gap-0.5">
               <IndianRupee size={16} /> {totalCredits.toLocaleString()}
             </span>
           </div>
-          <div className="h-10 w-10 bg-cyan-500/10 border border-cyan-500/20 rounded-lg flex items-center justify-center text-cyan-400">
+          <div className="h-10 w-10 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center text-amber-400">
             <ArrowUpRight size={20} />
           </div>
         </div>
@@ -295,11 +295,11 @@ export default function FinancePage() {
         <div className="bg-slate-900/20 border border-slate-900 p-4 rounded-xl flex items-center justify-between">
           <div>
             <span className="text-[9px] text-slate-500 font-bold uppercase tracking-wider block mb-1">Net Realized Balance</span>
-            <span className={`text-lg font-black flex items-center gap-0.5 ${netBalance >= 0 ? "text-teal-400" : "text-rose-500"}`}>
+            <span className={`text-lg font-black flex items-center gap-0.5 ${netBalance >= 0 ? "text-amber-400" : "text-rose-500"}`}>
               <IndianRupee size={16} /> {netBalance.toLocaleString()}
             </span>
           </div>
-          <div className="h-10 w-10 bg-teal-500/10 border border-teal-500/20 rounded-lg flex items-center justify-center text-teal-400 font-bold text-sm">
+          <div className="h-10 w-10 bg-amber-500/10 border border-amber-500/20 rounded-lg flex items-center justify-center text-amber-400 font-bold text-sm">
             NET
           </div>
         </div>
@@ -314,19 +314,19 @@ export default function FinancePage() {
             <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-900 rounded-xl p-1">
               <button 
                 onClick={() => setFilterType("All")}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterType === "All" ? "bg-cyan-500/10 text-cyan-400" : "text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterType === "All" ? "bg-amber-500/10 text-amber-400" : "text-slate-400 hover:text-white"}`}
               >
                 All types
               </button>
               <button 
                 onClick={() => setFilterType("Credit")}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterType === "Credit" ? "bg-cyan-500/10 text-cyan-400" : "text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterType === "Credit" ? "bg-amber-500/10 text-amber-400" : "text-slate-400 hover:text-white"}`}
               >
                 Credits
               </button>
               <button 
                 onClick={() => setFilterType("Debit")}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterType === "Debit" ? "bg-cyan-500/10 text-cyan-400" : "text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterType === "Debit" ? "bg-amber-500/10 text-amber-400" : "text-slate-400 hover:text-white"}`}
               >
                 Debits
               </button>
@@ -336,19 +336,19 @@ export default function FinancePage() {
             <div className="flex items-center gap-1.5 bg-slate-950 border border-slate-900 rounded-xl p-1">
               <button 
                 onClick={() => setFilterStatus("All")}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterStatus === "All" ? "bg-cyan-500/10 text-cyan-400" : "text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterStatus === "All" ? "bg-amber-500/10 text-amber-400" : "text-slate-400 hover:text-white"}`}
               >
                 All Status
               </button>
               <button 
                 onClick={() => setFilterStatus("Paid")}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterStatus === "Paid" ? "bg-cyan-500/10 text-cyan-400" : "text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterStatus === "Paid" ? "bg-amber-500/10 text-amber-400" : "text-slate-400 hover:text-white"}`}
               >
                 Paid
               </button>
               <button 
                 onClick={() => setFilterStatus("Unpaid")}
-                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterStatus === "Unpaid" ? "bg-cyan-500/10 text-cyan-400" : "text-slate-400 hover:text-white"}`}
+                className={`px-3 py-1.5 text-[10px] font-bold uppercase rounded-lg transition-all ${filterStatus === "Unpaid" ? "bg-amber-500/10 text-amber-400" : "text-slate-400 hover:text-white"}`}
               >
                 Unpaid
               </button>
@@ -365,7 +365,7 @@ export default function FinancePage() {
               placeholder="Search by company or description..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 outline-none placeholder-slate-650"
+              className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 outline-none placeholder-slate-650"
             />
           </div>
         </div>
@@ -395,7 +395,7 @@ export default function FinancePage() {
                     <td className="py-3.5 px-4 font-bold text-slate-200">{t.company?.company_name}</td>
                     <td className="py-3.5 px-4">
                       {t.type === "Credit" ? (
-                        <span className="text-cyan-400 font-semibold flex items-center gap-1">
+                        <span className="text-amber-400 font-semibold flex items-center gap-1">
                           <ArrowUpRight size={12} /> Credit
                         </span>
                       ) : (
@@ -413,7 +413,7 @@ export default function FinancePage() {
                         title="Click to toggle status"
                         className={`px-2 py-0.5 rounded-full text-[9px] font-extrabold border transition-all cursor-pointer ${
                           t.status === "Paid" 
-                            ? "bg-teal-500/10 text-teal-400 border-teal-500/20 hover:bg-teal-500/25" 
+                            ? "bg-amber-500/10 text-amber-400 border-amber-500/20 hover:bg-amber-500/25" 
                             : "bg-rose-500/10 text-rose-400 border-rose-500/20 hover:bg-rose-500/25 animate-pulse"
                         }`}
                       >
@@ -430,7 +430,7 @@ export default function FinancePage() {
                       <div className="flex items-center justify-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
                         <button 
                           onClick={() => openEditModal(t)}
-                          className="p-1 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-slate-400 hover:text-cyan-450 rounded transition-all"
+                          className="p-1 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-slate-400 hover:text-amber-450 rounded transition-all"
                         >
                           <Edit size={12} />
                         </button>
@@ -464,7 +464,7 @@ export default function FinancePage() {
                 <select 
                   value={companyId} 
                   onChange={(e) => setCompanyId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                 >
                   {companies.map(c => (
                     <option key={c.id} value={c.id}>{c.company_name} ({c.country})</option>
@@ -477,7 +477,7 @@ export default function FinancePage() {
                 <select 
                   value={type} 
                   onChange={(e) => setType(e.target.value as any)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                 >
                   <option value="Credit">Credit (Revenue Inward)</option>
                   <option value="Debit">Debit (Expense Outward)</option>
@@ -493,7 +493,7 @@ export default function FinancePage() {
                     onChange={(e) => setAmount(e.target.value)}
                     required 
                     placeholder="e.g. 75000"
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   />
                 </div>
 
@@ -502,7 +502,7 @@ export default function FinancePage() {
                   <select 
                     value={status} 
                     onChange={(e) => setStatus(e.target.value as any)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                   >
                     <option value="Paid">Paid</option>
                     <option value="Unpaid">Unpaid</option>
@@ -516,7 +516,7 @@ export default function FinancePage() {
                   type="date" 
                   value={dueDate} 
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
                 />
               </div>
 
@@ -527,7 +527,7 @@ export default function FinancePage() {
                   value={description} 
                   onChange={(e) => setDescription(e.target.value)}
                   placeholder="e.g. Phase 2 UI Design Retainer Invoice"
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -541,7 +541,7 @@ export default function FinancePage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Entry
                 </button>
@@ -565,7 +565,7 @@ export default function FinancePage() {
                 <select 
                   value={editCompanyId} 
                   onChange={(e) => setEditCompanyId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                 >
                   {companies.map(c => (
                     <option key={c.id} value={c.id}>{c.company_name} ({c.country})</option>
@@ -578,7 +578,7 @@ export default function FinancePage() {
                 <select 
                   value={editType} 
                   onChange={(e) => setEditType(e.target.value as any)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                 >
                   <option value="Credit">Credit (Revenue Inward)</option>
                   <option value="Debit">Debit (Expense Outward)</option>
@@ -593,7 +593,7 @@ export default function FinancePage() {
                     value={editAmount} 
                     onChange={(e) => setEditAmount(e.target.value)}
                     required 
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   />
                 </div>
 
@@ -602,7 +602,7 @@ export default function FinancePage() {
                   <select 
                     value={editStatus} 
                     onChange={(e) => setEditStatus(e.target.value as any)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                   >
                     <option value="Paid">Paid</option>
                     <option value="Unpaid">Unpaid</option>
@@ -616,7 +616,7 @@ export default function FinancePage() {
                   type="date" 
                   value={editDueDate} 
                   onChange={(e) => setEditDueDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
                 />
               </div>
 
@@ -626,7 +626,7 @@ export default function FinancePage() {
                   type="text" 
                   value={editDescription} 
                   onChange={(e) => setEditDescription(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -640,7 +640,7 @@ export default function FinancePage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

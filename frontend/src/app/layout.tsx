@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Avanta | AI Sales CRM & Client Intelligence",
+  title: "Swamy Jewellery | AI Sales CRM & Client Intelligence",
   description: "Next-generation client acquisition, website intelligence, and predictive sales forecasting.",
 };
 

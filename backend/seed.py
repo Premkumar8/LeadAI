@@ -38,10 +38,10 @@ def seed_db():
     
     # 2. Create User
     admin = User(
-        name="John Doe",
-        email="admin@avanta.ai",
+        name="Swamy Jewellery",
+        email="admin@swamyjewellery.com",
         password_hash=get_password_hash("password123"),
-        company_name="Avanta Solutions",
+        company_name="Swamy Jewellery Solutions",
         role="admin"
     )
     db.add(admin)
@@ -171,7 +171,7 @@ def seed_db():
     
     email = Email(
         lead_id=milano_lead.id,
-        email_subject="Proposal draft - Avanta & Milano Consulting",
+        email_subject="Proposal draft - Swamy Jewellery & Milano Consulting",
         email_body="Hi Giovanni, here is the initial dashboard migration scope we discussed. Let me know your thoughts.",
         response_received=True
     )

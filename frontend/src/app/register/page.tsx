@@ -42,17 +42,17 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950 px-4 relative overflow-hidden">
       {/* Background Decorative Blur */}
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-cyan-600/10 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-teal-600/10 rounded-full blur-3xl"></div>
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-amber-600/10 rounded-full blur-3xl"></div>
+      <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-amber-600/10 rounded-full blur-3xl"></div>
 
       <div className="w-full max-w-md bg-slate-900/40 backdrop-blur-md border border-slate-900 p-8 rounded-2xl shadow-2xl relative z-10 shadow-neon-accent">
         <div className="flex flex-col items-center mb-6">
-          <div className="h-12 w-12 rounded-xl bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center font-bold text-white text-2xl shadow-lg shadow-cyan-500/20 mb-3">
+          <div className="h-12 w-12 rounded-xl bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-white text-2xl shadow-lg shadow-amber-500/20 mb-3">
             A
           </div>
           <h1 className="text-2xl font-black tracking-tight text-white">Create Account</h1>
           <p className="text-sm text-slate-400 text-center mt-1">
-            Set up your Avanta SaaS CRM workspace
+            Set up your Swamy Jewellery SaaS CRM workspace
           </p>
         </div>
 
@@ -78,7 +78,7 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all"
+              className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all"
               placeholder="Sarah Connor"
             />
           </div>
@@ -92,7 +92,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all"
+              className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all"
               placeholder="sarah@company.com"
             />
           </div>
@@ -106,7 +106,7 @@ export default function RegisterPage() {
               value={companyName}
               onChange={(e) => setCompanyName(e.target.value)}
               required
-              className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all"
+              className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-600 outline-none transition-all"
               placeholder="e.g. Cyberdyne Systems"
             />
           </div>
@@ -120,7 +120,7 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all"
+              className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all"
               placeholder="••••••••"
             />
           </div>
@@ -128,7 +128,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={loading || success}
-            className="w-full bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-cyan-600/10 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+            className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
           >
             {loading ? (
               <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
@@ -143,7 +143,7 @@ export default function RegisterPage() {
 
         <div className="mt-6 text-center text-xs text-slate-400">
           Already have an account?{" "}
-          <Link href="/login" className="text-cyan-400 hover:underline font-semibold flex items-center justify-center gap-1 mt-1">
+          <Link href="/login" className="text-amber-400 hover:underline font-semibold flex items-center justify-center gap-1 mt-1">
             <span>Sign in here</span>
             <ArrowRight size={12} />
           </Link>

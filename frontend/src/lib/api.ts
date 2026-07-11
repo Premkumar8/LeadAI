@@ -105,6 +105,7 @@ export const api = {
     followUp: (id: string) => apiFetch(`/leads/${id}/follow-up`),
   },
 
+
   // Activities
   activities: {
     listForLead: (leadId: string) => apiFetch(`/activities/lead/${leadId}`),
@@ -159,7 +160,8 @@ export const api = {
 
   // Analytics
   analytics: {
-    dashboard: () => apiFetch("/analytics/dashboard"),
+    dashboard: (campaignId?: string) => 
+      apiFetch(campaignId ? `/analytics/dashboard?campaign_id=${campaignId}` : "/analytics/dashboard"),
   },
 
   // Transactions
@@ -181,6 +183,14 @@ export const api = {
       apiFetch(`/projects/${projectId}/companies/${companyId}`, { method: "POST" }),
     unlinkCompany: (projectId: string, companyId: string) => 
       apiFetch(`/projects/${projectId}/companies/${companyId}`, { method: "DELETE" }),
+  },
+
+  // Campaigns
+  campaigns: {
+    list: () => apiFetch("/campaigns/"),
+    create: (body: any) => apiFetch("/campaigns/", { method: "POST", json: body }),
+    update: (id: string, body: any) => apiFetch(`/campaigns/${id}`, { method: "PUT", json: body }),
+    delete: (id: string) => apiFetch(`/campaigns/${id}`, { method: "DELETE" }),
   },
 };
 

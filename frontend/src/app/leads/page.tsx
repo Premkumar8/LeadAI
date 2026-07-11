@@ -198,7 +198,7 @@ export default function LeadsPage() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-cyan-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Create Deal</span>
@@ -216,7 +216,7 @@ export default function LeadsPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search leads by client company name..."
-              className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-200 outline-none placeholder-slate-600 transition-all"
+              className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl pl-9 pr-4 py-2.5 text-xs text-slate-200 outline-none placeholder-slate-600 transition-all"
             />
           </div>
 
@@ -292,7 +292,7 @@ export default function LeadsPage() {
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => openEditModal(selectedLead)}
-                    className="p-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 rounded-xl transition-all cursor-pointer"
+                    className="p-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-amber-400 rounded-xl transition-all cursor-pointer"
                     title="Edit Deal properties"
                   >
                     <Edit size={14} />
@@ -308,9 +308,9 @@ export default function LeadsPage() {
               </div>
 
               {/* Heuristics Follow Up Panel */}
-              <div className="bg-cyan-500/5 border border-cyan-500/10 p-5 rounded-2xl">
-                <h4 className="text-xs font-extrabold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5 mb-3">
-                  <Sparkles size={14} className="text-cyan-400" />
+              <div className="bg-amber-500/5 border border-amber-500/10 p-5 rounded-2xl">
+                <h4 className="text-xs font-extrabold text-amber-300 uppercase tracking-wider flex items-center gap-1.5 mb-3">
+                  <Sparkles size={14} className="text-amber-400" />
                   <span>Smart Follow-Up Suggestions</span>
                 </h4>
                 {loadingFollowUp ? (
@@ -338,7 +338,7 @@ export default function LeadsPage() {
               {/* Outreach Generation Sandbox */}
               <div className="space-y-4">
                 <div className="flex items-center gap-2 border-b border-slate-900 pb-3">
-                  <Mail size={16} className="text-cyan-400" />
+                  <Mail size={16} className="text-amber-400" />
                   <h4 className="font-bold text-sm text-slate-200">AI Outreach Sequence Generator</h4>
                 </div>
 
@@ -349,7 +349,7 @@ export default function LeadsPage() {
                       type="text" 
                       value={outreachRole} 
                       onChange={(e) => setOutreachRole(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
                     />
                   </div>
                   <div>
@@ -358,7 +358,7 @@ export default function LeadsPage() {
                       type="text" 
                       value={services} 
                       onChange={(e) => setServices(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
                     />
                   </div>
                 </div>
@@ -369,7 +369,7 @@ export default function LeadsPage() {
                     <select 
                       value={outreachChannel} 
                       onChange={(e) => setOutreachChannel(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
                     >
                       <option value="email">Email Campaign</option>
                       <option value="linkedin">LinkedIn Direct</option>
@@ -380,7 +380,7 @@ export default function LeadsPage() {
                     <select 
                       value={outreachType} 
                       onChange={(e) => setOutreachType(e.target.value)}
-                      className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
+                      className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-2.5 py-1.5 text-xs text-slate-300 outline-none"
                     >
                       {outreachChannel === "email" ? (
                         <>
@@ -403,7 +403,7 @@ export default function LeadsPage() {
                 <button
                   onClick={handleGenerateOutreach}
                   disabled={generatingOutreach}
-                  className="w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer shadow-md transition-all"
+                  className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer shadow-md transition-all"
                 >
                   <Sparkles size={14} className={generatingOutreach ? "animate-spin" : ""} />
                   <span>{generatingOutreach ? "Composing Copy..." : "Generate AI Outreach"}</span>
@@ -420,12 +420,12 @@ export default function LeadsPage() {
                     </button>
                     {generatedOutreach.subject && (
                       <div className="text-xs text-slate-350 pr-8">
-                        <span className="text-cyan-400 font-bold block mb-0.5">SUBJECT:</span>
+                        <span className="text-amber-400 font-bold block mb-0.5">SUBJECT:</span>
                         {generatedOutreach.subject}
                       </div>
                     )}
                     <div className="text-xs text-slate-350 pr-8 whitespace-pre-wrap leading-relaxed">
-                      {generatedOutreach.subject && <span className="text-cyan-400 font-bold block mb-0.5">BODY:</span>}
+                      {generatedOutreach.subject && <span className="text-amber-400 font-bold block mb-0.5">BODY:</span>}
                       {generatedOutreach.body}
                     </div>
                   </div>
@@ -456,7 +456,7 @@ export default function LeadsPage() {
                   value={companyId} 
                   onChange={(e) => setCompanyId(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
                 >
                   <option value="">Select company account...</option>
                   {companies.map(c => (
@@ -471,7 +471,7 @@ export default function LeadsPage() {
                   type="number" 
                   value={value} 
                   onChange={(e) => setValue(parseInt(e.target.value) || 0)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -481,7 +481,7 @@ export default function LeadsPage() {
                   <select 
                     value={priority} 
                     onChange={(e) => setPriority(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -493,12 +493,14 @@ export default function LeadsPage() {
                   <select 
                     value={source} 
                     onChange={(e) => setSource(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   >
                     <option value="Website">Website</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Direct Call">Direct Call</option>
                     <option value="Referral">Referral</option>
-                    <option value="Inbound">Inbound</option>
-                    <option value="Outbound">Outbound</option>
                   </select>
                 </div>
               </div>
@@ -513,7 +515,7 @@ export default function LeadsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Deal
                 </button>
@@ -538,7 +540,7 @@ export default function LeadsPage() {
                   value={editCompanyId} 
                   onChange={(e) => setEditCompanyId(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
                 >
                   {companies.map(c => (
                     <option key={c.id} value={c.id}>{c.company_name}</option>
@@ -552,7 +554,7 @@ export default function LeadsPage() {
                   type="number" 
                   value={editValue} 
                   onChange={(e) => setEditValue(parseInt(e.target.value) || 0)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -562,7 +564,7 @@ export default function LeadsPage() {
                   <select 
                     value={editPriority} 
                     onChange={(e) => setEditPriority(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   >
                     <option value="Low">Low</option>
                     <option value="Medium">Medium</option>
@@ -574,12 +576,14 @@ export default function LeadsPage() {
                   <select 
                     value={editSource} 
                     onChange={(e) => setEditSource(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   >
                     <option value="Website">Website</option>
+                    <option value="Instagram">Instagram</option>
+                    <option value="Facebook">Facebook</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="Direct Call">Direct Call</option>
                     <option value="Referral">Referral</option>
-                    <option value="Inbound">Inbound</option>
-                    <option value="Outbound">Outbound</option>
                   </select>
                 </div>
               </div>
@@ -589,7 +593,7 @@ export default function LeadsPage() {
                 <select 
                   value={editStatus} 
                   onChange={(e) => setEditStatus(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
                 >
                   <option value="New">New</option>
                   <option value="Contacted">Contacted</option>
@@ -612,7 +616,7 @@ export default function LeadsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

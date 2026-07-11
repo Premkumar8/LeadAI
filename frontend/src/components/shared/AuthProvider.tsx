@@ -22,7 +22,9 @@ import {
   Sun,
   Moon,
   Receipt,
-  FolderOpen
+  FolderOpen,
+  Megaphone,
+  Play
 } from "lucide-react";
 import { api } from "@/lib/api";
 
@@ -120,7 +122,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
     return (
       <div className="flex h-screen w-screen items-center justify-center bg-slate-950 text-slate-100">
         <div className="text-center">
-          <div className="h-10 w-10 animate-spin rounded-full border-4 border-cyan-500 border-t-transparent mx-auto mb-4"></div>
+          <div className="h-10 w-10 animate-spin rounded-full border-4 border-amber-500 border-t-transparent mx-auto mb-4"></div>
           <p className="text-slate-400 font-medium">Securing session...</p>
         </div>
       </div>
@@ -134,17 +136,12 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
   const menuItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Leads Pipeline", href: "/leads", icon: Users },
-    { name: "Kanban Board", href: "/pipeline", icon: KanbanSquare },
-    { name: "Companies", href: "/companies", icon: Building2 },
-    { name: "Contacts", href: "/contacts", icon: Contact2 },
-    { name: "Company Projects", href: "/projects", icon: FolderOpen },
-    { name: "Meetings AI", href: "/meetings", icon: Video },
+    { name: "Campaigns", href: "/pipeline", icon: KanbanSquare },
+    { name: "Customers", href: "/contacts", icon: Contact2 },
+    { name: "Execution Tracker", href: "/execution", icon: Play },
+    // { name: "Meetings AI", href: "/meetings", icon: Video },
     { name: "Action Tasks", href: "/tasks", icon: CheckSquare },
-    { name: "AI Sales Assistant", href: "/assistant", icon: Bot, highlight: true },
-    { name: "Credit & Debit", href: "/finance", icon: Receipt },
-    { name: "Analytics & ML", href: "/analytics", icon: BarChart3 },
-    { name: "Settings", href: "/settings", icon: SettingsIcon },
+    // { name: "AI Sales Assistant", href: "/assistant", icon: Bot, highlight: true },
   ];
 
   return (
@@ -152,11 +149,11 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       {/* Mobile Toggle header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-950/80 backdrop-blur-md border-b border-slate-900 flex items-center justify-between px-4 z-40">
         <div className="flex items-center gap-2">
-          <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center font-bold text-white shadow-md">
-            A
+          <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-white shadow-md">
+            S
           </div>
-          <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-            Avanta
+          <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent">
+            Swamy Jewellery
           </span>
         </div>
         <button 
@@ -176,13 +173,13 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         <div>
           {/* Sidebar Logo */}
           <div className="h-16 flex items-center gap-2 px-6 border-b border-slate-900">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center font-bold text-white shadow-lg shadow-cyan-500/10">
-              A
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-white shadow-lg shadow-amber-500/10">
+              S
             </div>
-            <span className="font-black text-xl tracking-tight bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
-              AVANTA
+            <span className="font-black text-xl tracking-tight bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent">
+              SWAMY JEWELLERY
             </span>
-            <span className="text-[10px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 rounded-full px-2 py-0.5 ml-2">
+            <span className="text-[10px] font-semibold bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-full px-2 py-0.5 ml-2">
               SaaS
             </span>
           </div>
@@ -200,16 +197,16 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                   className={`
                     flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group
                     ${isActive 
-                      ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white shadow-lg shadow-cyan-500/15 font-semibold" 
+                      ? "bg-gradient-to-r from-amber-500 to-amber-500 text-white shadow-lg shadow-amber-500/15 font-semibold" 
                       : "text-slate-400 hover:bg-slate-900/60 hover:text-slate-100"
                     }
-                    ${item.highlight ? "border border-cyan-500/20 bg-cyan-500/5" : ""}
+                    ${item.highlight ? "border border-amber-500/20 bg-amber-500/5" : ""}
                   `}
                 >
                   <Icon size={18} className={`transition-transform duration-200 group-hover:scale-105 ${isActive ? "text-white" : "text-slate-400 group-hover:text-slate-100"}`} />
                   <span className="flex-1">{item.name}</span>
                   {item.highlight && (
-                    <span className="flex items-center gap-0.5 text-[10px] text-cyan-300 font-bold bg-cyan-500/20 px-1.5 py-0.5 rounded-full">
+                    <span className="flex items-center gap-0.5 text-[10px] text-amber-300 font-bold bg-amber-500/20 px-1.5 py-0.5 rounded-full">
                       <Sparkles size={8} className="animate-pulse" /> AI
                     </span>
                   )}
@@ -227,19 +224,19 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         {/* User profile details at the bottom of the sidebar */}
         <div className="p-4 border-t border-slate-900 bg-slate-950/60">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-10 w-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-cyan-400 font-bold">
+            <div className="h-10 w-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400 font-bold">
               {user?.name ? user.name.charAt(0).toUpperCase() : <User size={18} />}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-slate-100 truncate">{user?.name || "Agent User"}</p>
-              <p className="text-xs text-slate-500 truncate">{user?.email || "admin@avanta.ai"}</p>
+              <p className="text-xs text-slate-500 truncate">{user?.email || "admin@swamyjewellery.com"}</p>
             </div>
           </div>
           <button
             onClick={toggleTheme}
             className="lg:hidden w-full flex items-center justify-center gap-2 px-4 py-2 mb-2 rounded-xl text-xs font-semibold text-slate-400 hover:bg-slate-900 border border-slate-900 transition-colors duration-200 cursor-pointer"
           >
-            {theme === "dark" ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-cyan-400" />}
+            {theme === "dark" ? <Sun size={14} className="text-amber-400" /> : <Moon size={14} className="text-amber-400" />}
             <span>{theme === "dark" ? "Light Mode" : "Dark Mode"}</span>
           </button>
           <button
@@ -269,7 +266,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
               className="p-2.5 rounded-xl text-slate-400 hover:bg-slate-900 hover:text-slate-100 border border-slate-900/60 bg-slate-950/50 transition-colors duration-200 cursor-pointer"
               title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
-              {theme === "dark" ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-cyan-400" />}
+              {theme === "dark" ? <Sun size={15} className="text-amber-400" /> : <Moon size={15} className="text-amber-400" />}
             </button>
             
             <div className="h-5 w-px bg-slate-900"></div>
@@ -277,7 +274,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
             {/* Logged in user info */}
             <div className="flex flex-col items-end justify-center">
               <span className="text-xs font-bold text-slate-200">{user?.name || "Agent User"}</span>
-              <span className="text-[10px] text-slate-500">{user?.email || "admin@avanta.ai"}</span>
+              <span className="text-[10px] text-slate-500">{user?.email || "admin@swamyjewellery.com"}</span>
             </div>
 
             <div className="h-5 w-px bg-slate-900"></div>

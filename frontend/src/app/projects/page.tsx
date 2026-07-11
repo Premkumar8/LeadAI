@@ -160,7 +160,7 @@ export default function ProjectsPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-black tracking-tight text-white flex items-center gap-3">
-            <FolderOpen className="text-cyan-400" />
+            <FolderOpen className="text-amber-400" />
             <span>Company Projects & Mappings</span>
           </h1>
           <p className="text-sm text-slate-400 mt-1">
@@ -169,7 +169,7 @@ export default function ProjectsPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-cyan-600/10 flex items-center gap-2 cursor-pointer w-fit"
+          className="bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 flex items-center gap-2 cursor-pointer w-fit"
         >
           <Plus size={16} />
           <span>Add Project / Product</span>
@@ -184,7 +184,7 @@ export default function ProjectsPage() {
             <h3 className="text-2xl font-black text-white mt-1">{totalProjects}</h3>
             <p className="text-xs text-slate-400 mt-0.5">Projects / Products defined</p>
           </div>
-          <div className="p-3 bg-slate-950 border border-slate-900 rounded-xl text-cyan-400">
+          <div className="p-3 bg-slate-950 border border-slate-900 rounded-xl text-amber-400">
             <Layers size={20} />
           </div>
         </div>
@@ -203,13 +203,13 @@ export default function ProjectsPage() {
         <div className="bg-slate-900/40 backdrop-blur-md border border-slate-900/80 p-5 rounded-2xl flex items-center justify-between shadow-lg">
           <div>
             <span className="text-xs text-slate-500 uppercase tracking-widest font-bold">Total Licensing Value</span>
-            <h3 className="text-2xl font-black text-teal-400 mt-1 flex items-center">
+            <h3 className="text-2xl font-black text-amber-400 mt-1 flex items-center">
               <IndianRupee size={20} />
               <span>{totalLicensingCost.toLocaleString()}</span>
             </h3>
             <p className="text-xs text-slate-400 mt-0.5">Combined itemized service costs</p>
           </div>
-          <div className="p-3 bg-slate-950 border border-slate-900 rounded-xl text-teal-400">
+          <div className="p-3 bg-slate-950 border border-slate-900 rounded-xl text-amber-400">
             <IndianRupee size={20} />
           </div>
         </div>
@@ -224,14 +224,14 @@ export default function ProjectsPage() {
             placeholder="Search projects by name or description..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none transition-all"
+            className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl pl-10 pr-4 py-2 text-sm text-slate-100 placeholder-slate-500 outline-none transition-all"
           />
         </div>
       </div>
 
       {loading ? (
         <div className="flex justify-center items-center py-20">
-          <Loader2 className="animate-spin text-cyan-500" size={40} />
+          <Loader2 className="animate-spin text-amber-500" size={40} />
         </div>
       ) : filteredProjects.length === 0 ? (
         <div className="bg-slate-900/20 border border-slate-900 rounded-2xl p-12 text-center">
@@ -251,24 +251,24 @@ export default function ProjectsPage() {
             return (
               <div key={project.id} className="bg-slate-900/40 backdrop-blur-md border border-slate-900 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-800 transition-all duration-200 shadow-md relative overflow-hidden group">
                 {/* Visual Accent */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 to-teal-500 opacity-60"></div>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-amber-500 opacity-60"></div>
                 
                 <div>
                   {/* Title & Status */}
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h3 className="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors duration-200">
+                      <h3 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors duration-200">
                         {project.name}
                       </h3>
                       <div className="flex items-center gap-1.5 mt-1 text-slate-400">
-                        <IndianRupee size={12} className="text-teal-400" />
-                        <span className="text-xs font-semibold text-teal-400">
+                        <IndianRupee size={12} className="text-amber-400" />
+                        <span className="text-xs font-semibold text-amber-400">
                           {project.cost.toLocaleString()}
                         </span>
                         <span className="text-slate-600">•</span>
                         <span className={`text-[10px] font-extrabold uppercase px-2 py-0.5 rounded-full border
                           ${project.status === "Completed" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : ""}
-                          ${project.status === "In Progress" ? "bg-cyan-500/10 text-cyan-400 border-cyan-500/20" : ""}
+                          ${project.status === "In Progress" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" : ""}
                           ${project.status === "Planning" ? "bg-slate-500/10 text-slate-400 border-slate-500/20" : ""}
                           ${project.status === "On Hold" ? "bg-amber-500/10 text-amber-400 border-amber-500/20" : ""}
                         `}>
@@ -323,7 +323,7 @@ export default function ProjectsPage() {
                         {project.companies.map((comp: any) => (
                           <div
                             key={comp.id}
-                            className="flex items-center gap-1 px-2.5 py-1 bg-slate-950/60 border border-slate-900 rounded-full text-xs text-slate-300 hover:text-cyan-400 hover:border-cyan-500/30 transition-all duration-200 group/pill"
+                            className="flex items-center gap-1 px-2.5 py-1 bg-slate-950/60 border border-slate-900 rounded-full text-xs text-slate-300 hover:text-amber-400 hover:border-amber-500/30 transition-all duration-200 group/pill"
                           >
                             <Link href="/companies" className="font-medium">
                               {comp.company_name}
@@ -357,7 +357,7 @@ export default function ProjectsPage() {
                         e.target.value = ""; // Reset value
                       }}
                       defaultValue=""
-                      className="flex-1 bg-slate-950 border border-slate-900 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:border-cyan-500 outline-none transition-colors cursor-pointer"
+                      className="flex-1 bg-slate-950 border border-slate-900 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:border-amber-500 outline-none transition-colors cursor-pointer"
                     >
                       <option value="" disabled>Link a client company...</option>
                       {unmappedCompanies.map((c: any) => (
@@ -386,7 +386,7 @@ export default function ProjectsPage() {
             </button>
 
             <h2 className="text-xl font-black text-white mb-4 flex items-center gap-2">
-              <FolderOpen size={20} className="text-cyan-400" />
+              <FolderOpen size={20} className="text-amber-400" />
               <span>Define Corporate Project</span>
             </h2>
 
@@ -399,7 +399,7 @@ export default function ProjectsPage() {
                   placeholder="e.g. Next.js Enterprise License"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all"
                 />
               </div>
 
@@ -410,7 +410,7 @@ export default function ProjectsPage() {
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all resize-none"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all resize-none"
                 />
               </div>
 
@@ -423,7 +423,7 @@ export default function ProjectsPage() {
                     placeholder="850000"
                     value={cost || ""}
                     onChange={(e) => setCost(Number(e.target.value))}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 placeholder-slate-650 outline-none transition-all"
                   />
                 </div>
 
@@ -432,7 +432,7 @@ export default function ProjectsPage() {
                   <select
                     value={status}
                     onChange={(e) => setStatus(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-300 outline-none transition-all cursor-pointer"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-300 outline-none transition-all cursor-pointer"
                   >
                     {PROJECT_STATUSES.map(st => (
                       <option key={st} value={st}>{st}</option>
@@ -448,7 +448,7 @@ export default function ProjectsPage() {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-350 outline-none transition-all"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-350 outline-none transition-all"
                   />
                 </div>
 
@@ -458,14 +458,14 @@ export default function ProjectsPage() {
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-350 outline-none transition-all"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-350 outline-none transition-all"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-cyan-600/10 cursor-pointer"
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 cursor-pointer"
               >
                 Create Catalog Entry
               </button>
@@ -489,7 +489,7 @@ export default function ProjectsPage() {
             </button>
 
             <h2 className="text-xl font-black text-white mb-4 flex items-center gap-2">
-              <Edit size={20} className="text-cyan-400" />
+              <Edit size={20} className="text-amber-400" />
               <span>Edit Project Catalog</span>
             </h2>
 
@@ -502,7 +502,7 @@ export default function ProjectsPage() {
                   placeholder="e.g. Next.js Enterprise License"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 outline-none transition-all"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 outline-none transition-all"
                 />
               </div>
 
@@ -513,7 +513,7 @@ export default function ProjectsPage() {
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 outline-none transition-all resize-none"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 outline-none transition-all resize-none"
                 />
               </div>
 
@@ -526,7 +526,7 @@ export default function ProjectsPage() {
                     placeholder="850000"
                     value={editCost || ""}
                     onChange={(e) => setEditCost(Number(e.target.value))}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 outline-none transition-all"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-100 outline-none transition-all"
                   />
                 </div>
 
@@ -535,7 +535,7 @@ export default function ProjectsPage() {
                   <select
                     value={editStatus}
                     onChange={(e) => setEditStatus(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-300 outline-none transition-all cursor-pointer"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm text-slate-300 outline-none transition-all cursor-pointer"
                   >
                     {PROJECT_STATUSES.map(st => (
                       <option key={st} value={st}>{st}</option>
@@ -551,7 +551,7 @@ export default function ProjectsPage() {
                     type="date"
                     value={editStartDate}
                     onChange={(e) => setEditStartDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm outline-none transition-all"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm outline-none transition-all"
                   />
                 </div>
 
@@ -561,14 +561,14 @@ export default function ProjectsPage() {
                     type="date"
                     value={editEndDate}
                     onChange={(e) => setEditEndDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 rounded-xl px-4.5 py-2.5 text-sm outline-none transition-all"
+                    className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 rounded-xl px-4.5 py-2.5 text-sm outline-none transition-all"
                   />
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-cyan-600/10 cursor-pointer"
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 cursor-pointer"
               >
                 Save Catalog Changes
               </button>
@@ -582,5 +582,5 @@ export default function ProjectsPage() {
 
 // Add Loader2 mapping for custom fallback if needed
 const Loader2 = ({ className, size }: { className?: string, size?: number }) => (
-  <div className={`animate-spin rounded-full border-4 border-cyan-500 border-t-transparent ${className}`} style={{ width: size, height: size }}></div>
+  <div className={`animate-spin rounded-full border-4 border-amber-500 border-t-transparent ${className}`} style={{ width: size, height: size }}></div>
 );

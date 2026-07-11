@@ -4,11 +4,11 @@ from pydantic import computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    PROJECT_NAME: str = "Avanta"
+    PROJECT_NAME: str = "Swamy Jewellery"
     API_V1_STR: str = "/api/v1"
     
     # Security
-    SECRET_KEY: str = "SUPER_SECRET_TOKEN_KEY_CHANGE_IN_PRODUCTION_AVANTA_12345"
+    SECRET_KEY: str = "SUPER_SECRET_TOKEN_KEY_CHANGE_IN_PRODUCTION_SWAMY JEWELLERY_12345"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7  # 7 days
     
     # Database

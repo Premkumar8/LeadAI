@@ -82,10 +82,10 @@ def generate_outreach_email(company_info: Dict[str, Any], contact_role: str, ser
     services = services_offered if services_offered else "AI automation and cloud scale consulting"
     
     fallback_templates = {
-        "cold": f"Subject: Scaling {company_name}'s developer velocity with {services}\n\nHi there,\n\nI noticed {company_name} is growing rapidly and using technologies like {company_info.get('tech_stack', 'modern cloud stacks')}.\n\nAt Avanta, we help firms automate integrations and unlock new efficiencies using {services}.\n\nDo you have 10 minutes for a brief introductory call next Tuesday?\n\nBest,\nSales Team",
+        "cold": f"Subject: Scaling {company_name}'s developer velocity with {services}\n\nHi there,\n\nI noticed {company_name} is growing rapidly and using technologies like {company_info.get('tech_stack', 'modern cloud stacks')}.\n\nAt Swamy Jewellery, we help firms automate integrations and unlock new efficiencies using {services}.\n\nDo you have 10 minutes for a brief introductory call next Tuesday?\n\nBest,\nSales Team",
         "follow_up": f"Subject: Re: Scaling {company_name}'s developer velocity\n\nHi there,\n\nI wanted to follow up on my previous message. I know you're busy managing your role as {contact_role}.\n\nWe recently helped a similar firm reduce infrastructure bottlenecks by 40%. I think we could do something similar for {company_name}.\n\nLet me know if you have a moment this week.\n\nBest,\nSales Team",
-        "meeting_request": f"Subject: Meeting Request: Avanta & {company_name}\n\nHi there,\n\nI'd love to schedule a brief meeting to discuss how we can assist {company_name} with your current challenges, specifically {company_info.get('pain_points', 'pipeline scale')}.\n\nHere is my calendar link, or let me know what times work for you.\n\nBest,\nSales Team",
-        "proposal_follow_up": f"Subject: Proposal Details - Avanta & {company_name}\n\nHi there,\n\nI wanted to follow up on the proposal we sent over. I'm happy to address any questions you or the team might have regarding our timeline, scope, or pricing.\n\nLooking forward to working together.\n\nBest,\nSales Team"
+        "meeting_request": f"Subject: Meeting Request: Swamy Jewellery & {company_name}\n\nHi there,\n\nI'd love to schedule a brief meeting to discuss how we can assist {company_name} with your current challenges, specifically {company_info.get('pain_points', 'pipeline scale')}.\n\nHere is my calendar link, or let me know what times work for you.\n\nBest,\nSales Team",
+        "proposal_follow_up": f"Subject: Proposal Details - Swamy Jewellery & {company_name}\n\nHi there,\n\nI wanted to follow up on the proposal we sent over. I'm happy to address any questions you or the team might have regarding our timeline, scope, or pricing.\n\nLooking forward to working together.\n\nBest,\nSales Team"
     }
     
     template = fallback_templates.get(email_type, fallback_templates["cold"])
@@ -239,7 +239,7 @@ def generate_proposal_pdf(client_name: str, services: str, pricing: str, timelin
 
     # Document Header
     story.append(Paragraph("PROJECT SERVICE PROPOSAL", title_style))
-    story.append(Paragraph("Prepared by Avanta SaaS CRM", body_style))
+    story.append(Paragraph("Prepared by Swamy Jewellery SaaS CRM", body_style))
     story.append(Spacer(1, 20))
     
     # Client Segment
@@ -286,7 +286,7 @@ def generate_proposal_pdf(client_name: str, services: str, pricing: str, timelin
     # Signature block
     story.append(Paragraph("Authorized Approval Sign-Off", h2_style))
     sig_data = [
-        ['Client Signature', 'Avanta Agent Signature'],
+        ['Client Signature', 'Swamy Jewellery Agent Signature'],
         ['\n\n_________________________\nDate: ', '\n\n_________________________\nDate: ']
     ]
     sig_table = Table(sig_data, colWidths=[250, 250])

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1 import auth, companies, contacts, leads, activities, meetings, emails, tasks, ai, analytics, transactions, projects
+from app.api.v1 import auth, companies, contacts, leads, activities, meetings, emails, tasks, ai, analytics, transactions, projects, campaigns
 
 api_router = APIRouter()
 
@@ -15,4 +15,4 @@ api_router.include_router(ai.router, prefix="/ai", tags=["ai"])
 api_router.include_router(analytics.router, prefix="/analytics", tags=["analytics"])
 api_router.include_router(transactions.router, prefix="/transactions", tags=["transactions"])
 api_router.include_router(projects.router, prefix="/projects", tags=["projects"])
-
+api_router.include_router(campaigns.router, prefix="/campaigns", tags=["campaigns"])

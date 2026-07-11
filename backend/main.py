@@ -55,7 +55,7 @@ app.include_router(api_router, prefix=settings.API_V1_STR)
 def read_root():
     return {
         "status": "online",
-        "service": "Avanta SaaS CRM API",
+        "service": "Swamy Jewellery SaaS CRM API",
         "docs": "/docs"
     }
 

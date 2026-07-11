@@ -2,18 +2,17 @@
 
 import React, { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { KanbanSquare, Loader2, Megaphone, Users, MessageSquare, MousePointerClick, Smartphone, Plus, Edit, Trash2, X, Calendar } from "lucide-react";
+import { Megaphone, Users, MessageSquare, MousePointerClick, Smartphone, Plus, Edit, Trash2, X, Loader2, Contact } from "lucide-react";
 
-const CAMPAIGN_STAGES = ["Draft", "Active", "Completed"];
-
-export default function KanbanPage() {
+export default function CampaignsPage() {
   const [campaigns, setCampaigns] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   // Modal States
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showContactsModal, setShowContactsModal] = useState(false);
+  const [selectedCampaignForContacts, setSelectedCampaignForContacts] = useState<any>(null);
 
   // Form States
   const [name, setName] = useState("");
@@ -27,13 +26,13 @@ export default function KanbanPage() {
   const [editId, setEditId] = useState("");
 
   useEffect(() => {
-    fetchData();
+    fetchCampaigns();
   }, []);
 
-  const fetchData = async () => {
+  const fetchCampaigns = async () => {
     try {
-      const campaignsData = await api.campaigns.list();
-      setCampaigns(campaignsData);
+      const data = await api.campaigns.list();
+      setCampaigns(data);
     } catch (err) {
       console.error(err);
     } finally {
@@ -61,6 +60,7 @@ export default function KanbanPage() {
         start_date: startDate ? new Date(startDate).toISOString() : null,
         end_date: endDate ? new Date(endDate).toISOString() : null
       });
+      // default contacts to empty array since it's newly created
       newCampaign.contacts = [];
       setCampaigns([...campaigns, newCampaign]);
       setShowAddModal(false);
@@ -110,157 +110,160 @@ export default function KanbanPage() {
     }
   };
 
-  // Drag and Drop Handlers
-  const handleDragStart = (e: React.DragEvent, id: string) => {
-    e.dataTransfer.setData("text/plain", id);
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault(); // Required to drop
-  };
-
-  const handleDrop = async (e: React.DragEvent, targetStage: string) => {
-    e.preventDefault();
-    const id = e.dataTransfer.getData("text/plain");
-    
-    if (!id) return;
-
-    const targetCamp = campaigns.find(c => c.id === id);
-    if (!targetCamp || targetCamp.status === targetStage) return;
-
-    setUpdatingId(id);
-    try {
-      await api.campaigns.update(id, { status: targetStage });
-      setCampaigns(campaigns.map(c => c.id === id ? { ...c, status: targetStage } : c));
-    } catch (err) {
-      alert("Error moving campaign: " + err);
-    } finally {
-      setUpdatingId(null);
-    }
-  };
-
   const getSourceIcon = (src: string) => {
     switch (src) {
-      case "Instagram": return <Smartphone className="text-pink-500" size={14} />;
-      case "Facebook": return <Users className="text-amber-500" size={14} />;
-      case "WhatsApp": return <MessageSquare className="text-green-500" size={14} />;
-      case "Website": return <MousePointerClick className="text-amber-500" size={14} />;
-      default: return <Megaphone className="text-amber-500" size={14} />;
+      case "Instagram": return <Smartphone className="text-pink-500" size={20} />;
+      case "Facebook": return <Users className="text-amber-500" size={20} />;
+      case "WhatsApp": return <MessageSquare className="text-green-500" size={20} />;
+      case "Website": return <MousePointerClick className="text-amber-500" size={20} />;
+      default: return <Megaphone className="text-amber-500" size={20} />;
     }
   };
 
-  if (loading) {
-    return (
-      <div className="h-[70vh] flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-amber-500 mx-auto mb-3" />
-          <p className="text-slate-400 text-sm">Loading campaigns...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="space-y-6 h-full flex flex-col animate-fade-in">
-      {/* Header Panel */}
-      <div className="border-b border-slate-900 pb-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+    <div className="space-y-6 animate-fade-in">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-            <KanbanSquare className="text-amber-400" />
-            <span>Campaigns</span>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent flex items-center gap-2">
+            <Megaphone size={28} className="text-amber-400" />
+            Telecalling Campaigns
           </h1>
-          <p className="text-slate-400 text-sm mt-1">
-            Manage your campaigns and drag between columns to progress their status.
-          </p>
+          <p className="text-slate-400 mt-1">Manage and track your lead generation sources.</p>
         </div>
         <button 
           onClick={() => { resetForm(); setShowAddModal(true); }}
           className="bg-gradient-to-r from-amber-500 to-amber-500 text-white px-4 py-2.5 rounded-xl font-bold shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all hover:-translate-y-0.5 flex items-center gap-1.5 text-sm"
         >
           <Plus size={16} />
-          Add Campaign
+          New Campaign
         </button>
       </div>
 
-      {/* Board Scroll Container */}
-      <div className="flex-1 overflow-x-auto pb-4 flex gap-4 items-start min-h-[60vh]">
-        {CAMPAIGN_STAGES.map((stage) => {
-          const stageItems = campaigns.filter(c => c.status === stage);
-
-          return (
-            <div 
-              key={stage}
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, stage)}
-              className="w-80 flex-shrink-0 bg-slate-900/20 border border-slate-900 rounded-2xl p-4 flex flex-col gap-3 max-h-[75vh] shadow-neon-accent"
-            >
-              {/* Column Title */}
-              <div className="flex justify-between items-center border-b border-slate-900 pb-2">
-                <div className="min-w-0">
-                  <h3 className="font-bold text-sm text-slate-200 truncate">{stage}</h3>
+      {loading ? (
+        <div className="text-center py-20 text-slate-500">
+          <Loader2 className="h-8 w-8 animate-spin text-amber-500 mx-auto mb-3" />
+          <p>Loading campaigns...</p>
+        </div>
+      ) : campaigns.length === 0 ? (
+        <div className="text-center py-20 bg-slate-900/40 rounded-2xl border border-slate-900 text-slate-400">
+          No campaigns found. Create one to get started!
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {campaigns.map((campaign) => (
+            <div key={campaign.id} className="bg-slate-900/40 border border-slate-800 rounded-2xl p-5 hover:border-amber-500/30 transition-all shadow-neon-accent relative group flex flex-col">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 bg-slate-950 rounded-lg flex items-center justify-center border border-slate-800">
+                    {getSourceIcon(campaign.source)}
+                  </div>
+                  <div>
+                    <h3 className="text-base font-bold text-slate-100">{campaign.name}</h3>
+                    <p className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{campaign.type} • {campaign.source}</p>
+                  </div>
                 </div>
-                <span className="bg-slate-950 px-2 py-0.5 rounded-full text-xs font-extrabold text-slate-400 border border-slate-800">
-                  {stageItems.length}
+                <span className={`text-xs font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider border ${
+                  campaign.status === "Active" 
+                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" 
+                    : campaign.status === "Completed"
+                    ? "bg-slate-500/10 text-slate-400 border-slate-500/20"
+                    : "bg-amber-500/10 text-amber-400 border-amber-500/20"
+                }`}>
+                  {campaign.status}
                 </span>
               </div>
+              
+              <div className="grid grid-cols-2 gap-4 my-4 bg-slate-950/50 p-3 rounded-xl border border-slate-900/50 flex-grow">
+                <div>
+                  <p className="text-xs text-slate-500 font-semibold uppercase">Start Date</p>
+                  <p className="text-sm text-slate-300 font-medium">{campaign.start_date ? new Date(campaign.start_date).toLocaleDateString() : 'N/A'}</p>
+                </div>
+                <div>
+                  <p className="text-xs text-slate-500 font-semibold uppercase">End Date</p>
+                  <p className="text-sm text-slate-300 font-medium">{campaign.end_date ? new Date(campaign.end_date).toLocaleDateString() : 'N/A'}</p>
+                </div>
+              </div>
 
-              {/* Lane Cards Scroll Panel */}
-              <div className="flex-1 overflow-y-auto space-y-2.5 pr-1 min-h-[250px]">
-                {stageItems.length === 0 ? (
-                  <div className="h-full flex items-center justify-center border border-dashed border-slate-800/60 rounded-xl py-10 text-center text-xs text-slate-600">
-                    Drag campaigns here
-                  </div>
-                ) : (
-                  stageItems.map((campaign) => (
-                    <div
-                      key={campaign.id}
-                      draggable
-                      onDragStart={(e) => handleDragStart(e, campaign.id)}
-                      className={`
-                        bg-slate-950/80 border border-slate-800 rounded-xl p-4 hover:border-amber-500/30 transition-all shadow-sm relative group cursor-grab active:cursor-grabbing
-                        ${updatingId === campaign.id ? "opacity-50 pointer-events-none" : ""}
-                      `}
-                    >
-                      <div className="flex justify-between items-start mb-3">
-                        <div className="flex items-center gap-2">
-                          <div className="h-6 w-6 bg-slate-900 rounded-md flex items-center justify-center border border-slate-800">
-                            {getSourceIcon(campaign.source)}
-                          </div>
-                          <div>
-                            <h3 className="text-sm font-bold text-slate-100 line-clamp-1">{campaign.name}</h3>
-                            <p className="text-[8px] text-slate-400 font-semibold uppercase tracking-wider">{campaign.type} • {campaign.source}</p>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      <div className="flex justify-between items-center text-xs text-slate-400 font-medium mt-3 border-t border-slate-800/60 pt-3">
-                        <span className="flex flex-col">
-                          <span className="uppercase text-[7px] text-slate-500">Starts</span>
-                          {campaign.start_date ? new Date(campaign.start_date).toLocaleDateString() : 'N/A'}
-                        </span>
-                        <span className="flex flex-col items-end">
-                          <span className="uppercase text-[7px] text-slate-500">Leads Gen</span>
-                          <span className="text-amber-400 font-bold text-sm">{campaign.leads_generated || 0}</span>
-                        </span>
-                      </div>
-                      
-                      {/* Action Buttons (Visible on hover) */}
-                      <div className="absolute top-3 right-3 flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 p-1 rounded-lg border border-slate-800 shadow-xl">
-                        <button onClick={() => openEditModal(campaign)} className="p-1 text-slate-400 hover:text-amber-400 transition-colors" title="Edit Campaign">
-                          <Edit size={12} />
-                        </button>
-                        <button onClick={() => handleDelete(campaign.id)} className="p-1 text-slate-400 hover:text-red-400 transition-colors" title="Delete Campaign">
-                          <Trash2 size={12} />
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                )}
+              <div className="flex justify-between items-center text-sm border-t border-slate-800/60 pt-4 mt-auto">
+                <div className="flex items-center gap-1.5">
+                  <Users size={14} className="text-slate-500" />
+                  <span className="text-slate-400 text-sm">Customers Linked:</span>
+                  <span className="font-bold text-amber-400">{campaign.contacts?.length || 0}</span>
+                </div>
+                <button 
+                  onClick={() => { setSelectedCampaignForContacts(campaign); setShowContactsModal(true); }}
+                  className="text-sm text-amber-400 hover:text-amber-300 font-bold tracking-wide"
+                >
+                  View Details
+                </button>
+              </div>
+
+              {/* Action Buttons (Visible on hover) */}
+              <div className="absolute top-4 right-4 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-900 p-1 rounded-lg border border-slate-800 shadow-xl">
+                <button onClick={() => openEditModal(campaign)} className="p-1.5 text-slate-400 hover:text-amber-400 transition-colors" title="Edit Campaign">
+                  <Edit size={14} />
+                </button>
+                <button onClick={() => handleDelete(campaign.id)} className="p-1.5 text-slate-400 hover:text-red-400 transition-colors" title="Delete Campaign">
+                  <Trash2 size={14} />
+                </button>
               </div>
             </div>
-          );
-        })}
-      </div>
+          ))}
+        </div>
+      )}
+
+      {/* Customers List Modal */}
+      {showContactsModal && selectedCampaignForContacts && (
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="bg-slate-900 border border-slate-850 w-full max-w-2xl p-6 rounded-2xl shadow-2xl animate-scale-in">
+            <div className="flex justify-between items-center mb-5 border-b border-slate-800 pb-3">
+              <div>
+                <h3 className="font-black text-white text-lg flex items-center gap-2">
+                  <Users className="text-amber-400" size={20} />
+                  Customers in "{selectedCampaignForContacts.name}"
+                </h3>
+                <p className="text-sm text-slate-400 mt-1">
+                  1-to-N Relationship: {selectedCampaignForContacts.contacts?.length || 0} customer(s) linked to this campaign.
+                </p>
+              </div>
+              <button 
+                onClick={() => { setShowContactsModal(false); setSelectedCampaignForContacts(null); }} 
+                className="text-slate-400 hover:text-white transition-colors"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            
+            <div className="max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+              {(!selectedCampaignForContacts.contacts || selectedCampaignForContacts.contacts.length === 0) ? (
+                <div className="text-center py-10 text-slate-500 text-sm">
+                  No customers are currently linked to this campaign.
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {selectedCampaignForContacts.contacts.map((contact: any) => (
+                    <div key={contact.id} className="flex justify-between items-center p-4 bg-slate-950 border border-slate-800 rounded-xl hover:border-slate-700 transition-all">
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <Contact size={14} className="text-slate-500" />
+                          <h4 className="font-bold text-slate-200 text-sm">{contact.full_name}</h4>
+                        </div>
+                        <p className="text-sm text-slate-500 mt-1 pl-6">
+                          {contact.area || 'Unknown Area'} • {contact.lead_source || 'Unknown Source'}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-slate-400">{contact.phone || 'No Phone'}</p>
+                        <p className="text-sm text-slate-500 mt-0.5">{contact.email || 'No Email'}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Add / Edit Modal */}
       {(showAddModal || showEditModal) && (
@@ -321,25 +324,25 @@ export default function KanbanPage() {
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <div className="relative">
+                <div>
                   <label className="block text-sm font-semibold text-slate-400 mb-1.5">Start Date</label>
                   <input 
                     type="date" 
                     value={startDate} 
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl pl-3 pr-9 py-2.5 text-sm text-slate-200 outline-none cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0"
+                    style={{ colorScheme: "dark" }}
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none cursor-pointer"
                   />
-                  <Calendar className="absolute right-3 top-[34px] text-slate-400 pointer-events-none" size={14} />
                 </div>
-                <div className="relative">
+                <div>
                   <label className="block text-sm font-semibold text-slate-400 mb-1.5">End Date</label>
                   <input 
                     type="date" 
                     value={endDate} 
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl pl-3 pr-9 py-2.5 text-sm text-slate-200 outline-none cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:left-0"
+                    style={{ colorScheme: "dark" }}
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-sm text-slate-200 outline-none cursor-pointer"
                   />
-                  <Calendar className="absolute right-3 top-[34px] text-slate-400 pointer-events-none" size={14} />
                 </div>
               </div>
 

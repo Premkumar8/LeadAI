@@ -161,7 +161,7 @@ export default function CompaniesPage() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-cyan-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Add Account</span>
@@ -179,7 +179,7 @@ export default function CompaniesPage() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search companies by name or category..."
-              className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 outline-none placeholder-slate-600 transition-all"
+              className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-200 outline-none placeholder-slate-600 transition-all"
             />
           </div>
 
@@ -196,13 +196,13 @@ export default function CompaniesPage() {
                   className={`
                     p-4 rounded-xl border transition-all cursor-pointer flex justify-between items-center group
                     ${selectedCompany?.id === c.id 
-                      ? "bg-slate-900/60 border-cyan-500/40" 
+                      ? "bg-slate-900/60 border-amber-500/40" 
                       : "bg-slate-950 border-slate-900 hover:bg-slate-900"
                     }
                   `}
                 >
                   <div className="min-w-0">
-                    <h4 className="font-bold text-sm text-slate-100 group-hover:text-cyan-300 transition-colors">{c.company_name}</h4>
+                    <h4 className="font-bold text-sm text-slate-100 group-hover:text-amber-300 transition-colors">{c.company_name}</h4>
                     <span className="text-[10px] text-slate-500 flex items-center gap-1 mt-1">
                       <Globe size={10} /> {c.website || "No site linked"}
                     </span>
@@ -212,7 +212,7 @@ export default function CompaniesPage() {
                       <span className={`
                         text-[10px] font-extrabold px-2 py-0.5 rounded-full border
                         ${c.lead_score >= 80 
-                          ? "bg-teal-500/10 text-teal-400 border-teal-500/20" 
+                          ? "bg-amber-500/10 text-amber-400 border-amber-500/20" 
                           : c.lead_score >= 50 
                           ? "bg-amber-500/10 text-amber-400 border-amber-500/20" 
                           : "bg-slate-500/10 text-slate-400 border-slate-800"
@@ -236,12 +236,12 @@ export default function CompaniesPage() {
               {/* Dossier Header */}
               <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b border-slate-900 pb-5">
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-xl bg-slate-950 border border-slate-850 flex items-center justify-center text-cyan-400 font-bold">
+                  <div className="h-12 w-12 rounded-xl bg-slate-950 border border-slate-850 flex items-center justify-center text-amber-400 font-bold">
                     <Building2 size={24} />
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-white">{selectedCompany.company_name}</h2>
-                    <a href={`https://${selectedCompany.website}`} target="_blank" rel="noreferrer" className="text-xs text-cyan-400 hover:underline flex items-center gap-1 mt-0.5">
+                    <a href={`https://${selectedCompany.website}`} target="_blank" rel="noreferrer" className="text-xs text-amber-400 hover:underline flex items-center gap-1 mt-0.5">
                       <span>{selectedCompany.website}</span>
                       <ArrowUpRight size={12} />
                     </a>
@@ -252,7 +252,7 @@ export default function CompaniesPage() {
                   <button
                     onClick={() => handleCrawl(selectedCompany.id)}
                     disabled={crawlingId === selectedCompany.id}
-                    className="px-3 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/20 text-cyan-300 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
+                    className="px-3 py-2 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/20 text-amber-300 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all cursor-pointer disabled:opacity-50"
                   >
                     <RefreshCw size={14} className={crawlingId === selectedCompany.id ? "animate-spin" : ""} />
                     <span>{crawlingId === selectedCompany.id ? "Crawling Site..." : "Crawl & Score Website"}</span>
@@ -260,7 +260,7 @@ export default function CompaniesPage() {
 
                   <button
                     onClick={() => openEditModal(selectedCompany)}
-                    className="p-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 rounded-xl transition-all cursor-pointer"
+                    className="p-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-amber-400 rounded-xl transition-all cursor-pointer"
                     title="Edit Company details"
                   >
                     <Edit size={14} />
@@ -292,7 +292,7 @@ export default function CompaniesPage() {
                 </div>
                 <div className="bg-slate-950 p-4 rounded-xl border border-slate-900">
                   <span className="text-[10px] text-slate-500 font-bold uppercase block mb-1">AI Lead Score</span>
-                  <span className={`text-xs font-bold ${selectedCompany.lead_score >= 80 ? "text-teal-400" : "text-amber-400"}`}>
+                  <span className={`text-xs font-bold ${selectedCompany.lead_score >= 80 ? "text-amber-400" : "text-amber-400"}`}>
                     {selectedCompany.lead_score || "Unranked"} / 100
                   </span>
                 </div>
@@ -300,9 +300,9 @@ export default function CompaniesPage() {
 
               {/* AI Scraper Summaries */}
               <div className="space-y-4">
-                <div className="bg-cyan-500/5 border border-cyan-500/10 p-5 rounded-2xl">
-                  <h4 className="text-xs font-extrabold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5 mb-2">
-                    <Cpu size={14} className="text-cyan-400" />
+                <div className="bg-amber-500/5 border border-amber-500/10 p-5 rounded-2xl">
+                  <h4 className="text-xs font-extrabold text-amber-300 uppercase tracking-wider flex items-center gap-1.5 mb-2">
+                    <Cpu size={14} className="text-amber-400" />
                     <span>AI Executive Dossier Summary</span>
                   </h4>
                   <p className="text-xs leading-relaxed text-slate-300">
@@ -344,7 +344,7 @@ export default function CompaniesPage() {
             <div className="mt-6 border-t border-slate-900 pt-4 flex justify-between items-center text-xs text-slate-500">
               <span>Account UUID: {selectedCompany.id}</span>
               <div className="flex items-center gap-1">
-                <CheckCircle size={12} className="text-teal-500" />
+                <CheckCircle size={12} className="text-amber-500" />
                 <span>Synchronized with Vector Database</span>
               </div>
             </div>
@@ -369,7 +369,7 @@ export default function CompaniesPage() {
                   onChange={(e) => setName(e.target.value)}
                   required 
                   placeholder="e.g. Initech Corp"
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -381,7 +381,7 @@ export default function CompaniesPage() {
                   onChange={(e) => setWebsite(e.target.value)}
                   required 
                   placeholder="e.g. initech.com"
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -393,7 +393,7 @@ export default function CompaniesPage() {
                     value={industry} 
                     onChange={(e) => setIndustry(e.target.value)}
                     placeholder="e.g. DevTools"
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   />
                 </div>
                 <div>
@@ -401,7 +401,7 @@ export default function CompaniesPage() {
                   <select 
                     value={country} 
                     onChange={(e) => setCountry(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                   >
                     {COUNTRIES.map(c => (
                       <option key={c} value={c}>{c}</option>
@@ -416,7 +416,7 @@ export default function CompaniesPage() {
                   type="number" 
                   value={employees} 
                   onChange={(e) => setEmployees(parseInt(e.target.value) || 0)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -430,7 +430,7 @@ export default function CompaniesPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Account
                 </button>
@@ -456,7 +456,7 @@ export default function CompaniesPage() {
                   value={editName} 
                   onChange={(e) => setEditName(e.target.value)}
                   required 
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -467,7 +467,7 @@ export default function CompaniesPage() {
                   value={editWebsite} 
                   onChange={(e) => setEditWebsite(e.target.value)}
                   required 
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -478,7 +478,7 @@ export default function CompaniesPage() {
                     type="text" 
                     value={editIndustry} 
                     onChange={(e) => setEditIndustry(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                   />
                 </div>
                 <div>
@@ -486,7 +486,7 @@ export default function CompaniesPage() {
                   <select 
                     value={editCountry} 
                     onChange={(e) => setEditCountry(e.target.value)}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                   >
                     {COUNTRIES.map(c => (
                       <option key={c} value={c}>{c}</option>
@@ -501,7 +501,7 @@ export default function CompaniesPage() {
                   type="number" 
                   value={editEmployees} 
                   onChange={(e) => setEditEmployees(parseInt(e.target.value) || 0)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -515,7 +515,7 @@ export default function CompaniesPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

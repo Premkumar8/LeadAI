@@ -4,7 +4,7 @@ from uuid import UUID
 from typing import List
 
 from app.core.database import get_db
-from app.models.crm import Contact
+from app.models.crm import Contact, Company
 from app.schemas.crm import ContactCreate, ContactResponse, ContactUpdate
 from app.api.v1.auth import get_current_user
 
@@ -16,6 +16,15 @@ def get_contacts(db: Session = Depends(get_db), current_user = Depends(get_curre
 
 @router.post("/", response_model=ContactResponse)
 def create_contact(contact_in: ContactCreate, db: Session = Depends(get_db), current_user = Depends(get_current_user)):
+    if not contact_in.company_id:
+        default_company = db.query(Company).filter(Company.company_name == "Customer Base").first()
+        if not default_company:
+            default_company = Company(company_name="Customer Base")
+            db.add(default_company)
+            db.commit()
+            db.refresh(default_company)
+        contact_in.company_id = default_company.id
+
     contact = Contact(**contact_in.model_dump())
     db.add(contact)
     db.commit()

@@ -126,7 +126,7 @@ export default function AnalyticsPage() {
       {/* Header Panel */}
       <div className="border-b border-slate-900 pb-6">
         <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-          <BarChart3 className="text-cyan-400" />
+          <BarChart3 className="text-amber-400" />
           <span>Analytics & Machine Learning Sandbox</span>
         </h1>
         <p className="text-slate-400 text-sm mt-1">
@@ -139,7 +139,7 @@ export default function AnalyticsPage() {
         <div className="bg-slate-900/20 border border-slate-900 p-6 rounded-2xl flex flex-col justify-between space-y-6 shadow-neon-accent">
           <div className="space-y-4">
             <h3 className="font-extrabold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-900 pb-3">
-              <TrendingUp size={16} className="text-cyan-400" />
+              <TrendingUp size={16} className="text-amber-400" />
               <span>Opportunity Conversion Predictor</span>
             </h3>
 
@@ -154,7 +154,7 @@ export default function AnalyticsPage() {
                     setSelectedLeadId(e.target.value);
                     handlePredict(e.target.value);
                   }}
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none text-slate-200"
                 >
                   {leads.map(l => (
                     <option key={l.id} value={l.id}>{l.company.company_name} (₹{l.estimated_value.toLocaleString()})</option>
@@ -165,7 +165,7 @@ export default function AnalyticsPage() {
 
             {loadingPrediction ? (
               <div className="flex justify-center py-10">
-                <Loader2 className="h-8 w-8 animate-spin text-cyan-500" />
+                <Loader2 className="h-8 w-8 animate-spin text-amber-500" />
               </div>
             ) : prediction ? (
               <div className="space-y-5">
@@ -173,13 +173,13 @@ export default function AnalyticsPage() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div className="bg-slate-950 p-4 rounded-xl border border-slate-900">
                     <span className="text-[9px] text-slate-500 font-bold uppercase block mb-1">Conversion Prob</span>
-                    <span className="text-base font-black text-cyan-400 flex items-center gap-0.5">
+                    <span className="text-base font-black text-amber-400 flex items-center gap-0.5">
                       <Percent size={14} /> {int_to_percent(prediction.probability)}
                     </span>
                   </div>
                   <div className="bg-slate-950 p-4 rounded-xl border border-slate-900">
                     <span className="text-[9px] text-slate-500 font-bold uppercase block mb-1">Expected Value</span>
-                    <span className="text-base font-black text-emerald-450 text-teal-400 flex items-center gap-0.5">
+                    <span className="text-base font-black text-emerald-450 text-amber-400 flex items-center gap-0.5">
                       <IndianRupee size={14} /> {prediction.expected_value.toLocaleString()}
                     </span>
                   </div>
@@ -199,15 +199,15 @@ export default function AnalyticsPage() {
                   </div>
                   <div className="w-full bg-slate-900 h-2.5 rounded-full overflow-hidden">
                     <div 
-                      className="bg-gradient-to-r from-cyan-500 to-teal-500 h-full rounded-full transition-all duration-500" 
+                      className="bg-gradient-to-r from-amber-500 to-amber-500 h-full rounded-full transition-all duration-500" 
                       style={{ width: `${prediction.probability * 100}%` }}
                     />
                   </div>
                 </div>
 
                 {/* Explanation text */}
-                <div className="bg-cyan-500/5 border border-cyan-500/10 p-4 rounded-xl">
-                  <span className="text-[9px] text-cyan-300 font-bold uppercase tracking-wider block mb-1">Model Inference Explanation</span>
+                <div className="bg-amber-500/5 border border-amber-500/10 p-4 rounded-xl">
+                  <span className="text-[9px] text-amber-300 font-bold uppercase tracking-wider block mb-1">Model Inference Explanation</span>
                   <p className="text-xs leading-relaxed text-slate-350">{prediction.reason}</p>
                 </div>
               </div>
@@ -217,7 +217,7 @@ export default function AnalyticsPage() {
           </div>
           
           <div className="border-t border-slate-900 pt-4 flex items-center gap-2 text-[10px] text-slate-500 font-medium">
-            <ShieldCheck size={14} className="text-cyan-400" />
+            <ShieldCheck size={14} className="text-amber-400" />
             <span>Scikit-Learn RandomForestClassifier synced with local DB records</span>
           </div>
         </div>
@@ -226,7 +226,7 @@ export default function AnalyticsPage() {
         <div className="bg-slate-900/20 border border-slate-900 p-6 rounded-2xl flex flex-col justify-between shadow-neon-accent">
           <form onSubmit={triggerProposalDownload} className="space-y-4">
             <h3 className="font-extrabold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5 border-b border-slate-900 pb-3">
-              <FileText size={16} className="text-cyan-400" />
+              <FileText size={16} className="text-amber-400" />
               <span>AI PDF Proposal Compiler Sandbox</span>
             </h3>
 
@@ -238,7 +238,7 @@ export default function AnalyticsPage() {
                 onChange={(e) => setProposalClient(e.target.value)}
                 required
                 placeholder="e.g. Acme Tech Solutions"
-                className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
               />
             </div>
 
@@ -249,7 +249,7 @@ export default function AnalyticsPage() {
                 onChange={(e) => setProposalScope(e.target.value)}
                 required
                 rows={3}
-                className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 rounded-xl p-3 text-xs text-slate-200 outline-none resize-none"
+                className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 rounded-xl p-3 text-xs text-slate-200 outline-none resize-none"
               />
             </div>
 
@@ -261,7 +261,7 @@ export default function AnalyticsPage() {
                   value={proposalPricing}
                   onChange={(e) => setProposalPricing(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
               <div>
@@ -271,7 +271,7 @@ export default function AnalyticsPage() {
                   value={proposalTimeline}
                   onChange={(e) => setProposalTimeline(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-900 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-900 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
             </div>
@@ -279,7 +279,7 @@ export default function AnalyticsPage() {
             <button
               type="submit"
               disabled={generatingProposal}
-              className="w-full py-2.5 bg-gradient-to-r from-cyan-600 to-teal-600 hover:from-cyan-500 hover:to-teal-500 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-cyan-600/10 disabled:opacity-50"
+              className="w-full py-2.5 bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-amber-600/10 disabled:opacity-50"
             >
               {generatingProposal ? (
                 <>

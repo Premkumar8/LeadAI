@@ -56,15 +56,23 @@ class Contact(Base):
     __tablename__ = "contacts"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    company_id = Column(UUID(as_uuid=True), ForeignKey("companies.id", ondelete="CASCADE"), nullable=False)
+    company_id = Column(UUID(as_uuid=True), ForeignKey("companies.id", ondelete="CASCADE"), nullable=True) # Kept optional as requested previously
+    campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id", ondelete="SET NULL"), nullable=True)
     full_name = Column(String(255), nullable=False)
     job_title = Column(String(255), nullable=True)
     email = Column(String(255), nullable=True)
     phone = Column(String(50), nullable=True)
     linkedin_profile = Column(String(255), nullable=True)
+    area = Column(String(255), nullable=True)
+    address = Column(Text, nullable=True)
+    lead_source = Column(String(255), nullable=True)
+    status = Column(String(50), default="Waiting")
+    remarks = Column(String(255), nullable=True)
+    feedback = Column(Text, nullable=True)
 
     # Relationships
     company = relationship("Company", back_populates="contacts")
+    campaign = relationship("Campaign", back_populates="contacts")
 
 
 class Lead(Base):
@@ -72,6 +80,7 @@ class Lead(Base):
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     company_id = Column(UUID(as_uuid=True), ForeignKey("companies.id", ondelete="CASCADE"), nullable=False)
+    campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id", ondelete="SET NULL"), nullable=True)
     status = Column(String(50), default="New")  # New, Contacted, Discovery Call, Meeting Scheduled, Proposal Sent, Negotiation, Won, Lost
     priority = Column(String(20), default="Medium")  # Low, Medium, High
     estimated_value = Column(Float, default=0.0)
@@ -81,6 +90,7 @@ class Lead(Base):
 
     # Relationships
     company = relationship("Company", back_populates="leads")
+    campaign = relationship("Campaign", back_populates="leads")
     assigned_user = relationship("User", back_populates="assigned_leads")
     activities = relationship("Activity", back_populates="lead", cascade="all, delete-orphan")
     meetings = relationship("Meeting", back_populates="lead", cascade="all, delete-orphan")
@@ -133,13 +143,17 @@ class Task(Base):
     __tablename__ = "tasks"
     
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    lead_id = Column(UUID(as_uuid=True), ForeignKey("leads.id", ondelete="CASCADE"), nullable=False)
+    lead_id = Column(UUID(as_uuid=True), ForeignKey("leads.id", ondelete="CASCADE"), nullable=True)
+    campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id", ondelete="CASCADE"), nullable=True)
+    contact_id = Column(UUID(as_uuid=True), ForeignKey("contacts.id", ondelete="CASCADE"), nullable=True)
     title = Column(String(255), nullable=False)
     due_date = Column(DateTime, nullable=True)
     status = Column(String(50), default="Pending")  # Pending, Completed
 
     # Relationships
     lead = relationship("Lead", back_populates="tasks")
+    campaign = relationship("Campaign", backref="tasks")
+    contact = relationship("Contact", backref="tasks")
 
 
 class AI_Insight(Base):
@@ -185,3 +199,21 @@ class Project(Base):
 
     # Relationships
     companies = relationship("Company", secondary=company_projects, back_populates="projects")
+
+
+class Campaign(Base):
+    __tablename__ = "campaigns"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name = Column(String(255), nullable=False)
+    type = Column(String(100), nullable=True)
+    start_date = Column(DateTime, nullable=True)
+    end_date = Column(DateTime, nullable=True)
+    source = Column(String(100), nullable=True)
+    status = Column(String(50), default="Active")  # Active, Draft, Completed
+    leads_generated = Column(Integer, default=0)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    # Relationships
+    contacts = relationship("Contact", back_populates="campaign", cascade="all, delete-orphan")
+    leads = relationship("Lead", back_populates="campaign")

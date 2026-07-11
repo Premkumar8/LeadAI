@@ -42,9 +42,16 @@ class ContactBase(BaseModel):
     email: Optional[EmailStr] = None
     phone: Optional[str] = None
     linkedin_profile: Optional[str] = None
+    area: Optional[str] = None
+    address: Optional[str] = None
+    lead_source: Optional[str] = None
+    campaign_id: Optional[UUID] = None
+    status: Optional[str] = "Waiting"
+    remarks: Optional[str] = None
+    feedback: Optional[str] = None
 
 class ContactCreate(ContactBase):
-    company_id: UUID
+    company_id: Optional[UUID] = None
 
 class ContactUpdate(BaseModel):
     full_name: Optional[str] = None
@@ -52,10 +59,17 @@ class ContactUpdate(BaseModel):
     email: Optional[EmailStr] = None
     phone: Optional[str] = None
     linkedin_profile: Optional[str] = None
-
+    area: Optional[str] = None
+    address: Optional[str] = None
+    lead_source: Optional[str] = None
+    campaign_id: Optional[UUID] = None
+    status: Optional[str] = None
+    remarks: Optional[str] = None
+    feedback: Optional[str] = None
+    
 class ContactResponse(ContactBase):
     id: UUID
-    company_id: UUID
+    company_id: Optional[UUID] = None
 
     class Config:
         from_attributes = True
@@ -177,44 +191,51 @@ class TaskBase(BaseModel):
     due_date: Optional[datetime] = None
 
 class TaskCreate(TaskBase):
-    lead_id: UUID
+    lead_id: Optional[UUID] = None
+    campaign_id: Optional[UUID] = None
+    contact_id: Optional[UUID] = None
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = None
     due_date: Optional[datetime] = None
     status: Optional[str] = None
+    lead_id: Optional[UUID] = None
+    campaign_id: Optional[UUID] = None
+    contact_id: Optional[UUID] = None
 
 class TaskResponse(TaskBase):
     id: UUID
-    lead_id: UUID
+    lead_id: Optional[UUID] = None
+    campaign_id: Optional[UUID] = None
+    contact_id: Optional[UUID] = None
     status: str
 
     class Config:
         from_attributes = True
 
 
-# --- LEAD SCHEMAS ---
 class LeadBase(BaseModel):
     status: str = "New"
     priority: str = "Medium"
     estimated_value: float = 0.0
     source: Optional[str] = None
+    campaign_id: Optional[UUID] = None
+    assigned_user_id: Optional[UUID] = None
 
 class LeadCreate(LeadBase):
     company_id: UUID
-    assigned_user_id: Optional[UUID] = None
 
 class LeadUpdate(BaseModel):
     status: Optional[str] = None
     priority: Optional[str] = None
     estimated_value: Optional[float] = None
     source: Optional[str] = None
+    campaign_id: Optional[UUID] = None
     assigned_user_id: Optional[UUID] = None
 
 class LeadResponse(LeadBase):
     id: UUID
     company_id: UUID
-    assigned_user_id: Optional[UUID] = None
     created_at: datetime
     company: CompanyResponse
     assigned_user: Optional[UserResponse] = None
@@ -300,6 +321,37 @@ class ProjectResponse(ProjectBase):
     id: UUID
     created_at: datetime
     companies: List[CompanyResponse] = []
+
+    class Config:
+        from_attributes = True
+
+
+# --- CAMPAIGN SCHEMAS ---
+class CampaignBase(BaseModel):
+    name: str
+    type: Optional[str] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    source: Optional[str] = None
+    status: str = "Active"
+
+class CampaignCreate(CampaignBase):
+    pass
+
+class CampaignUpdate(BaseModel):
+    name: Optional[str] = None
+    type: Optional[str] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    source: Optional[str] = None
+    status: Optional[str] = None
+    leads_generated: Optional[int] = None
+
+class CampaignResponse(CampaignBase):
+    id: UUID
+    leads_generated: int
+    created_at: datetime
+    contacts: List[ContactResponse] = []
 
     class Config:
         from_attributes = True

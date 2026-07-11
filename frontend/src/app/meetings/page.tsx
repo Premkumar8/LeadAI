@@ -167,7 +167,7 @@ export default function MeetingsPage() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-cyan-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Log Sync Meeting</span>
@@ -193,13 +193,13 @@ export default function MeetingsPage() {
                   className={`
                     p-4 rounded-xl border transition-all cursor-pointer flex flex-col gap-2 group
                     ${selectedMeeting?.id === m.id 
-                      ? "bg-slate-900/60 border-cyan-500/40" 
+                      ? "bg-slate-900/60 border-amber-500/40" 
                       : "bg-slate-950 border-slate-900 hover:bg-slate-900"
                     }
                   `}
                 >
                   <div className="flex justify-between items-start">
-                    <h4 className="font-bold text-xs text-slate-200 truncate group-hover:text-cyan-300 transition-colors">
+                    <h4 className="font-bold text-xs text-slate-200 truncate group-hover:text-amber-300 transition-colors">
                       Sync Room
                     </h4>
                     <span className="text-[10px] text-slate-550 flex items-center gap-1">
@@ -210,7 +210,7 @@ export default function MeetingsPage() {
                     {m.notes || "No meeting notes logged."}
                   </p>
                   {m.summary && (
-                    <span className="text-[8px] bg-teal-500/10 text-teal-400 border border-teal-500/20 px-2 py-0.5 rounded-full w-max flex items-center gap-1 mt-1 font-bold uppercase tracking-wider">
+                    <span className="text-[8px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full w-max flex items-center gap-1 mt-1 font-bold uppercase tracking-wider">
                       <Sparkles size={8} /> AI Summarized
                     </span>
                   )}
@@ -237,7 +237,7 @@ export default function MeetingsPage() {
                 <div className="flex items-center gap-1.5">
                   <button
                     onClick={() => openEditModal(selectedMeeting)}
-                    className="p-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-cyan-400 rounded-xl transition-all cursor-pointer"
+                    className="p-2 bg-slate-950 hover:bg-slate-900 border border-slate-800 text-slate-400 hover:text-amber-400 rounded-xl transition-all cursor-pointer"
                     title="Edit Meeting Details"
                   >
                     <Edit size={14} />
@@ -265,12 +265,12 @@ export default function MeetingsPage() {
                     onChange={(e) => setTranscript(e.target.value)}
                     placeholder="Paste your Zoom/Teams/GMeet transcript copy here or type notes..."
                     rows={12}
-                    className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 text-xs text-slate-300 placeholder-slate-600 p-4 rounded-xl outline-none transition-all resize-none"
+                    className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 focus:ring-1 focus:ring-amber-500 text-xs text-slate-300 placeholder-slate-600 p-4 rounded-xl outline-none transition-all resize-none"
                   />
                   <button
                     onClick={handleSummarize}
                     disabled={summarizing || !transcript.trim()}
-                    className="w-full py-2.5 bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                    className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
                   >
                     {summarizing ? (
                       <>
@@ -288,15 +288,15 @@ export default function MeetingsPage() {
 
                 {/* AI Summary Output */}
                 <div className="space-y-4">
-                  <h4 className="font-bold text-xs text-slate-350 uppercase tracking-wider flex items-center gap-1.5 text-cyan-400">
+                  <h4 className="font-bold text-xs text-slate-350 uppercase tracking-wider flex items-center gap-1.5 text-amber-400">
                     <Sparkles size={14} />
                     <span>AI Analysis Output Dossier</span>
                   </h4>
                   
                   {selectedMeeting.summary ? (
                     <div className="space-y-4">
-                      <div className="bg-cyan-500/5 border border-cyan-500/10 p-4 rounded-xl">
-                        <span className="text-[10px] text-cyan-300 font-bold uppercase tracking-wider block mb-1">Executive Summary</span>
+                      <div className="bg-amber-500/5 border border-amber-500/10 p-4 rounded-xl">
+                        <span className="text-[10px] text-amber-300 font-bold uppercase tracking-wider block mb-1">Executive Summary</span>
                         <p className="text-xs text-slate-300 leading-relaxed font-medium">
                           {selectedMeeting.summary}
                         </p>
@@ -306,7 +306,7 @@ export default function MeetingsPage() {
                         <span className="text-[10px] text-slate-500 font-bold uppercase tracking-wider block mb-2">relational actions created</span>
                         <div className="space-y-2">
                           <div className="flex items-start gap-2 text-[11px] text-slate-400 font-medium">
-                            <CheckSquare size={12} className="text-teal-400 mt-0.5" />
+                            <CheckSquare size={12} className="text-amber-400 mt-0.5" />
                             <span>Action items have been pushed into the task list.</span>
                           </div>
                         </div>
@@ -346,7 +346,7 @@ export default function MeetingsPage() {
                   value={leadId} 
                   onChange={(e) => setLeadId(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
                 >
                   <option value="">Select active deal...</option>
                   {leads.map(l => (
@@ -362,7 +362,7 @@ export default function MeetingsPage() {
                   value={meetingDate} 
                   onChange={(e) => setMeetingDate(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-205 text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-205 text-slate-200"
                 />
               </div>
 
@@ -373,7 +373,7 @@ export default function MeetingsPage() {
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="Intro sync notes..."
                   rows={3}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none resize-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none resize-none"
                 />
               </div>
 
@@ -387,7 +387,7 @@ export default function MeetingsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Log Meeting
                 </button>
@@ -412,7 +412,7 @@ export default function MeetingsPage() {
                   value={editLeadId} 
                   onChange={(e) => setEditLeadId(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-200 outline-none"
                 >
                   {leads.map(l => (
                     <option key={l.id} value={l.id}>{l.company.company_name} - {l.status}</option>
@@ -427,7 +427,7 @@ export default function MeetingsPage() {
                   value={editMeetingDate} 
                   onChange={(e) => setEditMeetingDate(e.target.value)}
                   required
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
                 />
               </div>
 
@@ -437,7 +437,7 @@ export default function MeetingsPage() {
                   value={editNotes} 
                   onChange={(e) => setEditNotes(e.target.value)}
                   rows={3}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none resize-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none resize-none"
                 />
               </div>
 
@@ -451,7 +451,7 @@ export default function MeetingsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

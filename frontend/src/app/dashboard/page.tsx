@@ -3,22 +3,33 @@
 import React, { useEffect, useState } from "react";
 import { api } from "@/lib/api";
 import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-  PieChart, Pie, Cell
+  AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
+  BarChart, Bar, Legend
 } from "recharts";
 import { 
-  TrendingUp, Users, IndianRupee, Target, Award,
-  Globe2, Building2, ChevronRight, HelpCircle
+  Users, Megaphone, Filter, TrendingUp, Share2, PhoneCall, Clock
 } from "lucide-react";
-import Link from "next/link";
 
 export default function DashboardPage() {
   const [metrics, setMetrics] = useState<any>(null);
+  const [campaigns, setCampaigns] = useState<any[]>([]);
+  const [selectedCampaignId, setSelectedCampaignId] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    api.analytics.dashboard()
+    fetchDashboardData(selectedCampaignId);
+  }, [selectedCampaignId]);
+
+  useEffect(() => {
+    api.campaigns.list()
+      .then(data => setCampaigns(data))
+      .catch(err => console.error("Failed to load campaigns", err));
+  }, []);
+
+  const fetchDashboardData = (campaignId: string) => {
+    setLoading(true);
+    api.analytics.dashboard(campaignId)
       .then((data) => {
         setMetrics(data);
       })
@@ -28,13 +39,13 @@ export default function DashboardPage() {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  };
 
-  if (loading) {
+  if (loading && !metrics) {
     return (
       <div className="h-[70vh] flex items-center justify-center">
         <div className="text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-cyan-500 border-t-transparent mx-auto mb-3"></div>
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-amber-500 border-t-transparent mx-auto mb-3"></div>
           <p className="text-slate-400 text-sm">Aggregating CRM metrics...</p>
         </div>
       </div>
@@ -56,151 +67,295 @@ export default function DashboardPage() {
     );
   }
 
-  const kpis = [
-    { title: "Total CRM Leads", value: metrics?.total_leads || 0, icon: Users, desc: "Captured leads in database" },
-    { title: "Active Opportunities", value: metrics?.active_opportunities || 0, icon: Target, desc: "Currently in negotiations" },
-    { title: "Pipeline Valuation", value: `₹${(metrics?.pipeline_value || 0).toLocaleString()}`, icon: IndianRupee, desc: "Estimated active deal size" },
-    { title: "Revenue Forecast", value: `₹${(metrics?.revenue_forecast || 0).toLocaleString()}`, icon: TrendingUp, desc: "Weighted conversion estimate" },
-    { title: "Conversion Rate", value: `${metrics?.conversion_rate || 0}%`, icon: Award, desc: "Ratio of Won vs Lost leads" },
-  ];
-
-  const COLORS = ['#06B6D4', '#14B8A6', '#10B981', '#3B82F6', '#F59E0B', '#EF4444', '#8B5CF6'];
+  // Calculate totals for Social Network Campaign progress bars
+  const totalLeadsBySource = metrics?.source_distribution?.map((src: any) => ({
+    source: src.source,
+    total: src.Waiting + src.Contacted + src.Completed
+  })) || [];
+  
+  totalLeadsBySource.sort((a: any, b: any) => b.total - a.total);
+  const maxTotal = Math.max(...totalLeadsBySource.map((s: any) => s.total), 1);
+  const sourceColors = ['#E1306C', '#1877F2', '#1DA1F2', '#06B6D4', '#10B981', '#F59E0B', '#8B5CF6'];
 
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-6 animate-fade-in pb-8">
       {/* Header Panel */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-900 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-900 pb-4">
         <div>
-          <h1 className="text-3xl font-black tracking-tight text-white">Avanta CRM Insights</h1>
-          <p className="text-slate-400 text-sm mt-1">
-            Real-time pipeline metrics, automated web crawls, and sales projections.
+          <h1 className="text-2xl font-black tracking-tight text-slate-100">Dashboard</h1>
+          <p className="text-slate-400 text-xs mt-1">
+            Welcome to Swamy Jewellery Campaign Dashboard
           </p>
         </div>
-        <div className="flex gap-3">
-          <Link href="/leads" className="px-4 py-2.5 bg-slate-950 border border-slate-800 hover:bg-slate-900 text-slate-100 text-xs font-bold rounded-xl transition-all">
-            Manage Leads
-          </Link>
-          <Link href="/assistant" className="px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-white text-xs font-bold rounded-xl transition-all shadow-lg shadow-cyan-500/10">
-            Talk to AI Assistant
-          </Link>
+        
+        <div className="flex flex-col sm:flex-row gap-3 items-center bg-slate-900/50 p-1.5 rounded-xl border border-slate-800">
+          <div className="flex items-center gap-2 px-2 text-slate-400">
+            <Filter size={12} />
+            <span className="text-[10px] font-bold uppercase tracking-wider">Filter:</span>
+          </div>
+          <select 
+            value={selectedCampaignId}
+            onChange={(e) => setSelectedCampaignId(e.target.value)}
+            className="bg-slate-950 border border-slate-700 hover:border-amber-500 focus:border-amber-500 rounded-lg px-3 py-1.5 text-xs font-semibold text-slate-200 outline-none transition-all cursor-pointer min-w-[180px]"
+          >
+            <option value="">All Campaigns (Global)</option>
+            {campaigns.map(camp => (
+              <option key={camp.id} value={camp.id}>{camp.name}</option>
+            ))}
+          </select>
         </div>
       </div>
 
-      {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-        {kpis.map((kpi) => {
-          const Icon = kpi.icon;
-          return (
-            <div key={kpi.title} className="bg-slate-900/40 border border-slate-900 p-5 rounded-2xl relative overflow-hidden group hover:border-slate-800 transition-all duration-300 shadow-neon-accent">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-cyan-500/5 to-transparent rounded-bl-full pointer-events-none"></div>
-              <div className="flex justify-between items-start mb-3">
-                <span className="text-slate-500 text-xs font-semibold tracking-wide uppercase">{kpi.title}</span>
-                <div className="p-2 rounded-lg bg-slate-950 border border-slate-900 text-cyan-400">
-                  <Icon size={16} />
+      {loading && metrics && (
+        <div className="absolute top-0 left-0 w-full h-1 bg-amber-500/20 overflow-hidden rounded-t-xl z-50">
+          <div className="h-full bg-amber-500 w-1/3 animate-[slide_1s_ease-in-out_infinite]"></div>
+        </div>
+      )}
+
+      {/* Top Statistic Cards */}
+      <div className={`grid grid-cols-1 ${selectedCampaignId === "" ? "md:grid-cols-2" : "md:grid-cols-3"} gap-6`}>
+        {selectedCampaignId === "" ? (
+          <>
+            <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex items-center justify-between">
+              <div>
+                <p className="text-slate-400 text-sm font-medium mb-1">Total Campaign</p>
+                <p className="text-4xl font-black text-slate-100">{metrics?.total_campaigns || 0}</p>
+              </div>
+              <div className="w-14 h-14 rounded-full bg-green-500 flex items-center justify-center shadow-[0_0_20px_rgba(34,197,94,0.3)]">
+                <Megaphone size={24} className="text-white" />
+              </div>
+            </div>
+
+            <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex items-center justify-between">
+              <div>
+                <p className="text-slate-400 text-sm font-medium mb-1">Total Audience</p>
+                <p className="text-4xl font-black text-slate-100">{metrics?.total_customers || 0}</p>
+              </div>
+              <div className="w-14 h-14 rounded-full bg-orange-500 flex items-center justify-center shadow-[0_0_20px_rgba(249,115,22,0.3)]">
+                <Users size={24} className="text-white" />
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex items-center justify-between hover:border-blue-500/30 transition-colors">
+              <div>
+                <p className="text-slate-400 text-sm font-medium mb-1 uppercase tracking-wider">Total Audience</p>
+                <p className="text-4xl font-black text-blue-400">{metrics?.total_customers || 0}</p>
+              </div>
+              <div className="w-14 h-14 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+                <Users size={24} className="text-blue-400" />
+              </div>
+            </div>
+
+            <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex items-center justify-between hover:border-emerald-500/30 transition-colors">
+              <div>
+                <p className="text-slate-400 text-sm font-medium mb-1 uppercase tracking-wider">Contacted</p>
+                <p className="text-4xl font-black text-emerald-400">{metrics?.total_contacted || 0}</p>
+              </div>
+              <div className="w-14 h-14 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                <PhoneCall size={24} className="text-emerald-400" />
+              </div>
+            </div>
+
+            <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex items-center justify-between hover:border-amber-500/30 transition-colors">
+              <div>
+                <p className="text-slate-400 text-sm font-medium mb-1 uppercase tracking-wider">Not Contacted</p>
+                <p className="text-4xl font-black text-amber-400">{metrics?.total_waiting || 0}</p>
+              </div>
+              <div className="w-14 h-14 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+                <Clock size={24} className="text-amber-400" />
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+
+      {/* Campaign Execution Breakdown */}
+      {selectedCampaignId === "" && (
+        <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg mt-0 mb-6">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="font-bold text-slate-200 text-lg">Campaign Execution Summary</h3>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+          {campaigns.map((camp) => {
+            const total = camp.contacts?.length || 0;
+            const contacted = camp.contacts?.filter((c: any) => c.status === "Contacted" || c.status === "Completed").length || 0;
+            const waiting = camp.contacts?.filter((c: any) => c.status === "Waiting" || !c.status).length || 0;
+            const percentage = total > 0 ? Math.round((contacted / total) * 100) : 0;
+            
+            return (
+              <div key={camp.id} className="bg-slate-950/50 border border-slate-800 p-4 rounded-xl flex flex-col hover:border-amber-500/30 transition-colors">
+                <div className="flex justify-between items-start mb-3">
+                  <div>
+                    <p className="font-bold text-slate-200 text-sm truncate max-w-[150px]" title={camp.name}>{camp.name}</p>
+                    <p className="text-xs text-slate-500 mt-0.5">{camp.type}</p>
+                  </div>
+                  <span className="text-xs font-bold text-amber-500 bg-amber-500/10 px-2 py-1 rounded-md border border-amber-500/20">{percentage}%</span>
+                </div>
+                
+                <div className="flex justify-between items-center text-xs mb-3">
+                  <div className="flex flex-col">
+                    <span className="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">Contacted</span>
+                    <span className="font-black text-emerald-400 text-base">{contacted}</span>
+                  </div>
+                  <div className="flex flex-col text-right">
+                    <span className="text-slate-500 font-semibold uppercase tracking-wider text-[10px]">Non Contacted</span>
+                    <span className="font-black text-amber-400 text-base">{waiting}</span>
+                  </div>
+                </div>
+                
+                <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden mt-auto">
+                  <div 
+                    className="h-full bg-gradient-to-r from-emerald-500 to-amber-400 rounded-full shadow-[0_0_8px_rgba(52,211,153,0.5)]" 
+                    style={{ width: `${percentage}%` }}
+                  ></div>
                 </div>
               </div>
-              <p className="text-2xl font-black text-white tracking-tight">{kpi.value}</p>
-              <span className="text-[10px] text-slate-400 mt-1 block">{kpi.desc}</span>
+            );
+          })}
+          {campaigns.length === 0 && (
+            <div className="col-span-full text-center text-slate-500 py-4 text-sm">
+              No campaigns available.
             </div>
-          );
-        })}
-      </div>
-
-      {/* Recharts Analytics Graphs */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Stage Breakdown Bar Chart */}
-        <div className="lg:col-span-2 bg-slate-900/20 border border-slate-900 p-6 rounded-2xl shadow-neon-accent">
-          <h3 className="font-bold text-slate-200 mb-4 flex items-center gap-2 text-sm uppercase tracking-wide">
-            <Building2 size={16} className="text-cyan-400" />
-            <span>Sales Pipeline Stage Distribution</span>
-          </h3>
-          <div className="h-80 w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={metrics?.stage_distribution || []}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#1E293B" vertical={false} />
-                <XAxis dataKey="stage" stroke="#64748B" fontSize={11} tickLine={false} />
-                <YAxis stroke="#64748B" fontSize={11} tickLine={false} />
-                <Tooltip 
-                  contentStyle={{ backgroundColor: '#020617', borderColor: '#1E293B', borderRadius: '12px' }}
-                  labelStyle={{ color: '#F1F5F9', fontWeight: 'bold' }}
-                />
-                <Bar dataKey="count" fill="url(#colorBarGrad)" radius={[4, 4, 0, 0]} barSize={35}>
-                  <defs>
-                    <linearGradient id="colorBarGrad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#06B6D4" />
-                      <stop offset="100%" stopColor="#14B8A6" />
-                    </linearGradient>
-                  </defs>
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          </div>
+          )}
         </div>
+      </div>
+      )}
 
-        {/* Geographic Pie Chart */}
-        <div className="bg-slate-900/20 border border-slate-900 p-6 rounded-2xl shadow-neon-accent">
-          <h3 className="font-bold text-slate-200 mb-4 flex items-center gap-2 text-sm uppercase tracking-wide">
-            <Globe2 size={16} className="text-teal-400" />
-            <span>Territory Distribution</span>
-          </h3>
-          <div className="h-80 w-full flex flex-col justify-center">
-            {metrics?.country_distribution && metrics.country_distribution.length > 0 ? (
-              <ResponsiveContainer width="100%" height="75%">
-                <PieChart>
-                  <Pie
-                    data={metrics.country_distribution}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={60}
-                    outerRadius={80}
-                    paddingAngle={3}
-                    dataKey="value"
-                  >
-                    {metrics.country_distribution.map((entry: any, index: number) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    contentStyle={{ backgroundColor: '#020617', borderColor: '#1E293B', borderRadius: '12px' }}
+      {/* Main Content Area */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        {/* Left Panel: Reason Analysis Bar Chart */}
+        <div className="lg:col-span-2 bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="font-bold text-slate-200 text-lg">Reason Analysis</h3>
+          </div>
+          
+          <div className="flex-1 min-h-[350px] w-full">
+            {metrics?.remarks_distribution && metrics.remarks_distribution.length > 0 ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={metrics.remarks_distribution} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} horizontal={true} stroke="#1E293B" />
+                  <XAxis 
+                    dataKey="name" 
+                    stroke="#64748B" 
+                    fontSize={11} 
+                    tickLine={false} 
+                    axisLine={false}
                   />
-                </PieChart>
+                  <YAxis stroke="#64748B" fontSize={11} tickLine={false} axisLine={false} />
+                  <Tooltip 
+                    cursor={{ fill: '#1E293B', opacity: 0.4 }}
+                    contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(8px)', borderColor: '#1E293B', borderRadius: '12px' }}
+                    itemStyle={{ color: '#F1F5F9' }}
+                  />
+                  <Bar dataKey="value" name="Count" fill="#22C55E" radius={[6, 6, 0, 0]} maxBarSize={60} />
+                </BarChart>
               </ResponsiveContainer>
             ) : (
-              <div className="text-center text-slate-500 text-xs">No country distribution available.</div>
+              <div className="h-full flex items-center justify-center text-slate-500">
+                No reason data available for this campaign.
+              </div>
             )}
-            <div className="flex flex-wrap gap-x-4 gap-y-2 justify-center mt-3">
-              {metrics?.country_distribution?.map((item: any, idx: number) => (
-                <div key={item.name} className="flex items-center gap-1.5 text-xs text-slate-400">
-                  <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: COLORS[idx % COLORS.length] }}></div>
-                  <span>{item.name} ({item.value})</span>
+          </div>
+        </div>
+
+        {/* Right Panel: Stacked Widgets */}
+        <div className="lg:col-span-1 flex flex-col gap-6">
+          
+          {/* Social Network Campaign (Lead Sources) */}
+          <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-bold text-slate-200 text-sm">Lead Sources Breakdown</h3>
+              <Share2 size={16} className="text-slate-400" />
+            </div>
+            
+            <div className="space-y-5">
+              {totalLeadsBySource.length > 0 ? totalLeadsBySource.slice(0, 5).map((item: any, idx: number) => {
+                const percentage = (item.total / maxTotal) * 100;
+                const color = sourceColors[idx % sourceColors.length];
+                return (
+                  <div key={idx} className="space-y-2">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-lg" style={{ backgroundColor: color }}>
+                        {item.source.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="flex-1">
+                        <div className="flex justify-between items-center mb-1">
+                          <span className="text-slate-200 text-sm font-medium">{item.source}</span>
+                          <span className="text-slate-400 text-xs font-bold">{item.total}</span>
+                        </div>
+                        <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full rounded-full transition-all duration-1000" 
+                            style={{ width: `${percentage}%`, backgroundColor: color }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }) : (
+                <div className="text-slate-500 text-xs text-center py-4">No sources available</div>
+              )}
+            </div>
+            
+            {totalLeadsBySource.length > 5 && (
+              <button className="w-full mt-5 text-xs font-semibold text-slate-400 hover:text-amber-400 transition-colors">
+                Show more ▾
+              </button>
+            )}
+          </div>
+
+          {/* Ads Engagement (Stacked Bar Chart) */}
+          <div className="flex-1 bg-slate-900/40 backdrop-blur-md border border-slate-800/50 p-6 rounded-2xl shadow-lg flex flex-col">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-slate-200 text-sm">Engagement by Source</h3>
+              <TrendingUp size={16} className="text-slate-400" />
+            </div>
+            
+            <div className="flex-1 min-h-[220px] w-full">
+              {metrics?.source_distribution && metrics.source_distribution.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={metrics.source_distribution.slice(0, 7)} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
+                    <XAxis 
+                      dataKey="source" 
+                      stroke="#64748B" 
+                      fontSize={10} 
+                      tickLine={false} 
+                      axisLine={false}
+                      tickFormatter={(val) => val?.length > 6 ? val.substring(0, 6) + '..' : val}
+                    />
+                    <YAxis stroke="#64748B" fontSize={10} tickLine={false} axisLine={false} />
+                    <Tooltip 
+                      cursor={{ fill: '#1E293B', opacity: 0.4 }}
+                      contentStyle={{ backgroundColor: 'rgba(15, 23, 42, 0.9)', backdropFilter: 'blur(8px)', borderColor: '#1E293B', borderRadius: '12px' }}
+                      itemStyle={{ color: '#F1F5F9', fontSize: '12px' }}
+                    />
+                    <Legend 
+                      iconType="circle"
+                      wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }}
+                      payload={[
+                        { value: 'Waiting', type: 'circle', color: '#F43F5E' },
+                        { value: 'Contacted', type: 'circle', color: '#3B82F6' },
+                        { value: 'Completed', type: 'circle', color: '#06B6D4' }
+                      ]}
+                    />
+                    <Bar dataKey="Waiting" stackId="a" fill="#F43F5E" radius={[0, 0, 0, 0]} maxBarSize={12} />
+                    <Bar dataKey="Contacted" stackId="a" fill="#3B82F6" radius={[0, 0, 0, 0]} maxBarSize={12} />
+                    <Bar dataKey="Completed" stackId="a" fill="#06B6D4" radius={[4, 4, 0, 0]} maxBarSize={12} />
+                  </BarChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="h-full flex items-center justify-center text-slate-500 text-xs">
+                  No engagement data.
                 </div>
-              ))}
+              )}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* AI Quick Actions Panel */}
-      <div className="bg-slate-900/20 border border-slate-900 p-6 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-neon-accent">
-        <div className="flex items-center gap-4">
-          <div className="p-3 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 rounded-2xl">
-            <HelpCircle size={24} className="animate-pulse" />
-          </div>
-          <div>
-            <h3 className="font-bold text-white text-base">Unleash AI Client Discovery</h3>
-            <p className="text-xs text-slate-400 max-w-xl mt-1">
-              Add a target company profile, trigger the site intelligence crawler, analyze technologies/pain points, generate proposals, and let the AI scoring engine prioritize outreach targets.
-            </p>
-          </div>
-        </div>
-        <div className="flex gap-3 w-full md:w-auto">
-          <Link href="/companies" className="flex-1 md:flex-initial text-center px-4 py-2.5 bg-slate-950 hover:bg-slate-900 text-cyan-300 hover:text-cyan-200 text-xs font-bold rounded-xl transition-all border border-slate-800">
-            Crawl Website
-          </Link>
-          <Link href="/assistant" className="flex-1 md:flex-initial text-center px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-cyan-600/10 flex items-center justify-center gap-1.5">
-            <span>Launch Assistant</span>
-            <ChevronRight size={14} />
-          </Link>
+          
         </div>
       </div>
     </div>

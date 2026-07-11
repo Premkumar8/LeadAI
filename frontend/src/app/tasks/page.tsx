@@ -2,11 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { api } from "@/lib/api";
-import { CheckSquare, Square, CheckSquare2, Loader2, Calendar, Plus, Edit, Trash2, X } from "lucide-react";
+import { CheckSquare, Square, CheckSquare2, Loader2, Calendar, Plus, Edit, Trash2, X, Megaphone, User } from "lucide-react";
 
 export default function TasksPage() {
   const [tasks, setTasks] = useState<any[]>([]);
   const [leads, setLeads] = useState<any[]>([]);
+  const [campaigns, setCampaigns] = useState<any[]>([]);
+  const [contacts, setContacts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [togglingId, setTogglingId] = useState<string | null>(null);
 
@@ -15,6 +17,8 @@ export default function TasksPage() {
   const [title, setTitle] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [leadId, setLeadId] = useState("");
+  const [campaignId, setCampaignId] = useState("");
+  const [contactId, setContactId] = useState("");
 
   // Edit Task Modal
   const [showEditModal, setShowEditModal] = useState(false);
@@ -22,6 +26,8 @@ export default function TasksPage() {
   const [editTitle, setEditTitle] = useState("");
   const [editDueDate, setEditDueDate] = useState("");
   const [editLeadId, setEditLeadId] = useState("");
+  const [editCampaignId, setEditCampaignId] = useState("");
+  const [editContactId, setEditContactId] = useState("");
   const [editStatus, setEditStatus] = useState("Pending");
 
   useEffect(() => {
@@ -30,12 +36,16 @@ export default function TasksPage() {
 
   const fetchInitialData = async () => {
     try {
-      const [tasksData, leadsData] = await Promise.all([
+      const [tasksData, leadsData, campaignsData, contactsData] = await Promise.all([
         api.tasks.list(),
-        api.leads.list()
+        api.leads.list(),
+        api.campaigns.list(),
+        api.contacts.list()
       ]);
       setTasks(tasksData);
       setLeads(leadsData);
+      setCampaigns(campaignsData);
+      setContacts(contactsData);
     } catch (err) {
       console.error(err);
     } finally {
@@ -53,7 +63,9 @@ export default function TasksPage() {
         status: nextStatus,
         title: task.title,
         due_date: task.due_date,
-        lead_id: task.lead_id
+        lead_id: task.lead_id || null,
+        campaign_id: task.campaign_id || null,
+        contact_id: task.contact_id || null
       });
       setTasks(tasks.map(t => t.id === task.id ? updated : t));
     } catch (err) {
@@ -71,6 +83,8 @@ export default function TasksPage() {
         title,
         due_date: dueDate ? new Date(dueDate).toISOString() : null,
         lead_id: leadId || null,
+        campaign_id: campaignId || null,
+        contact_id: contactId || null,
         status: "Pending"
       });
       await fetchInitialData();
@@ -78,6 +92,8 @@ export default function TasksPage() {
       setTitle("");
       setDueDate("");
       setLeadId("");
+      setCampaignId("");
+      setContactId("");
     } catch (err) {
       alert("Error adding task.");
     }
@@ -91,6 +107,8 @@ export default function TasksPage() {
         title: editTitle,
         due_date: editDueDate ? new Date(editDueDate).toISOString() : null,
         lead_id: editLeadId || null,
+        campaign_id: editCampaignId || null,
+        contact_id: editContactId || null,
         status: editStatus
       });
       await fetchInitialData();
@@ -117,6 +135,8 @@ export default function TasksPage() {
     setEditTitle(t.title);
     setEditDueDate(t.due_date ? t.due_date.substring(0, 10) : "");
     setEditLeadId(t.lead_id || "");
+    setEditCampaignId(t.campaign_id || "");
+    setEditContactId(t.contact_id || "");
     setEditStatus(t.status);
     setShowEditModal(true);
   };
@@ -126,6 +146,16 @@ export default function TasksPage() {
     return found ? found.company.company_name : "";
   };
 
+  const getCampaignName = (cId: string) => {
+    const found = campaigns.find(c => c.id === cId);
+    return found ? found.name : "";
+  };
+
+  const getContactName = (cId: string) => {
+    const found = contacts.find(c => c.id === cId);
+    return found ? found.full_name : "";
+  };
+
   const pendingTasks = tasks.filter(t => t.status === "Pending");
   const completedTasks = tasks.filter(t => t.status === "Completed");
 
@@ -133,7 +163,7 @@ export default function TasksPage() {
     return (
       <div className="h-[70vh] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-cyan-500 mx-auto mb-3" />
+          <Loader2 className="h-8 w-8 animate-spin text-amber-500 mx-auto mb-3" />
           <p className="text-slate-400 text-sm">Synchronizing tasks checklist...</p>
         </div>
       </div>
@@ -146,7 +176,7 @@ export default function TasksPage() {
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-900 pb-6">
         <div>
           <h1 className="text-3xl font-black text-white tracking-tight flex items-center gap-2.5">
-            <CheckSquare2 className="text-cyan-400" />
+            <CheckSquare2 className="text-amber-400" />
             <span>Action Tasks Checklist</span>
           </h1>
           <p className="text-slate-400 text-sm mt-1">
@@ -155,7 +185,7 @@ export default function TasksPage() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-cyan-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Add Manual Task</span>
@@ -167,7 +197,7 @@ export default function TasksPage() {
         <div className="bg-slate-900/40 border border-slate-900 p-6 rounded-2xl space-y-4 shadow-neon-accent">
           <div className="flex justify-between items-center border-b border-slate-900 pb-2">
             <h3 className="font-bold text-xs text-slate-200 uppercase tracking-wider">Pending Tasks Checklist</h3>
-            <span className="bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded-full text-[9px] font-extrabold">
+            <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full text-[9px] font-extrabold">
               {pendingTasks.length} left
             </span>
           </div>
@@ -186,7 +216,7 @@ export default function TasksPage() {
                   `}
                 >
                   <div className="flex items-start gap-3 min-w-0">
-                    <button className="text-slate-500 hover:text-cyan-450 mt-0.5">
+                    <button className="text-slate-500 hover:text-amber-450 mt-0.5">
                       <Square size={16} />
                     </button>
                     <div className="min-w-0">
@@ -198,8 +228,18 @@ export default function TasksPage() {
                           </span>
                         )}
                         {t.lead_id && (
-                          <span className="text-[9px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-1.5 py-0.5 rounded">
+                          <span className="text-[9px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-1.5 py-0.5 rounded">
                             {getLeadCompanyName(t.lead_id)}
+                          </span>
+                        )}
+                        {t.campaign_id && (
+                          <span className="text-[9px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1.5 py-0.5 rounded flex items-center gap-1">
+                            <Megaphone size={10} /> {getCampaignName(t.campaign_id)}
+                          </span>
+                        )}
+                        {t.contact_id && (
+                          <span className="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded flex items-center gap-1">
+                            <User size={10} /> {getContactName(t.contact_id)}
                           </span>
                         )}
                       </div>
@@ -209,7 +249,7 @@ export default function TasksPage() {
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
                     <button 
                       onClick={(e) => openEditModal(t, e)}
-                      className="p-1 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-slate-400 hover:text-cyan-400 rounded transition-all"
+                      className="p-1 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-slate-400 hover:text-amber-400 rounded transition-all"
                     >
                       <Edit size={12} />
                     </button>
@@ -230,7 +270,7 @@ export default function TasksPage() {
         <div className="bg-slate-900/20 border border-slate-900/60 p-6 rounded-2xl space-y-4 shadow-neon-accent">
           <div className="flex justify-between items-center border-b border-slate-900 pb-2">
             <h3 className="font-bold text-xs text-slate-400 uppercase tracking-wider">Completed Archive</h3>
-            <span className="bg-teal-500/10 text-teal-400 border border-teal-500/20 px-2 py-0.5 rounded-full text-[9px] font-extrabold">
+            <span className="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded-full text-[9px] font-extrabold">
               {completedTasks.length} done
             </span>
           </div>
@@ -249,7 +289,7 @@ export default function TasksPage() {
                   `}
                 >
                   <div className="flex items-start gap-3 min-w-0">
-                    <button className="text-teal-500 hover:text-slate-550 mt-0.5">
+                    <button className="text-amber-500 hover:text-slate-550 mt-0.5">
                       <CheckSquare size={16} />
                     </button>
                     <div className="min-w-0">
@@ -265,6 +305,16 @@ export default function TasksPage() {
                             {getLeadCompanyName(t.lead_id)}
                           </span>
                         )}
+                        {t.campaign_id && (
+                          <span className="text-[9px] bg-slate-900 text-slate-500 border border-slate-850 px-1.5 py-0.5 rounded flex items-center gap-1">
+                            <Megaphone size={8} /> {getCampaignName(t.campaign_id)}
+                          </span>
+                        )}
+                        {t.contact_id && (
+                          <span className="text-[9px] bg-slate-900 text-slate-500 border border-slate-850 px-1.5 py-0.5 rounded flex items-center gap-1">
+                            <User size={8} /> {getContactName(t.contact_id)}
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -272,7 +322,7 @@ export default function TasksPage() {
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-all">
                     <button 
                       onClick={(e) => openEditModal(t, e)}
-                      className="p-1 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-slate-500 hover:text-cyan-400 rounded transition-all"
+                      className="p-1 hover:bg-slate-900 border border-transparent hover:border-slate-800 text-slate-500 hover:text-amber-400 rounded transition-all"
                     >
                       <Edit size={12} />
                     </button>
@@ -307,7 +357,7 @@ export default function TasksPage() {
                   onChange={(e) => setTitle(e.target.value)}
                   required 
                   placeholder="e.g. Call NovaSoft VP regarding SSO security requirements"
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -317,20 +367,34 @@ export default function TasksPage() {
                   type="date" 
                   value={dueDate} 
                   onChange={(e) => setDueDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Link Sales Deal (Optional)</label>
+                <label className="block text-xs text-slate-400 mb-1">Link Campaign (Optional)</label>
                 <select 
-                  value={leadId} 
-                  onChange={(e) => setLeadId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
+                  value={campaignId} 
+                  onChange={(e) => setCampaignId(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
                 >
-                  <option value="">No linked deal...</option>
-                  {leads.map(l => (
-                    <option key={l.id} value={l.id}>{l.company.company_name} - {l.status}</option>
+                  <option value="">No linked campaign...</option>
+                  {campaigns.map(c => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs text-slate-400 mb-1">Link Customer (Optional)</label>
+                <select 
+                  value={contactId} 
+                  onChange={(e) => setContactId(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
+                >
+                  <option value="">No linked customer...</option>
+                  {contacts.map(c => (
+                    <option key={c.id} value={c.id}>{c.full_name}</option>
                   ))}
                 </select>
               </div>
@@ -345,7 +409,7 @@ export default function TasksPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Task
                 </button>
@@ -371,7 +435,7 @@ export default function TasksPage() {
                   value={editTitle} 
                   onChange={(e) => setEditTitle(e.target.value)}
                   required 
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none"
                 />
               </div>
 
@@ -381,20 +445,34 @@ export default function TasksPage() {
                   type="date" 
                   value={editDueDate} 
                   onChange={(e) => setEditDueDate(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2 text-xs text-slate-200 outline-none text-slate-200"
                 />
               </div>
 
               <div>
-                <label className="block text-xs text-slate-400 mb-1">Link Sales Deal</label>
+                <label className="block text-xs text-slate-400 mb-1">Link Campaign</label>
                 <select 
-                  value={editLeadId} 
-                  onChange={(e) => setEditLeadId(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
+                  value={editCampaignId} 
+                  onChange={(e) => setEditCampaignId(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
                 >
-                  <option value="">No linked deal...</option>
-                  {leads.map(l => (
-                    <option key={l.id} value={l.id}>{l.company.company_name} - {l.status}</option>
+                  <option value="">No linked campaign...</option>
+                  {campaigns.map(c => (
+                    <option key={c.id} value={c.id}>{c.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-xs text-slate-400 mb-1">Link Customer</label>
+                <select 
+                  value={editContactId} 
+                  onChange={(e) => setEditContactId(e.target.value)}
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
+                >
+                  <option value="">No linked customer...</option>
+                  {contacts.map(c => (
+                    <option key={c.id} value={c.id}>{c.full_name}</option>
                   ))}
                 </select>
               </div>
@@ -404,7 +482,7 @@ export default function TasksPage() {
                 <select 
                   value={editStatus} 
                   onChange={(e) => setEditStatus(e.target.value)}
-                  className="w-full bg-slate-950 border border-slate-800 focus:border-cyan-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
+                  className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl px-3 py-2.5 text-xs text-slate-250 outline-none text-slate-200"
                 >
                   <option value="Pending">Pending</option>
                   <option value="Completed">Completed</option>
@@ -421,7 +499,7 @@ export default function TasksPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

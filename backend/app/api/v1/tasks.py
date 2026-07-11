@@ -43,13 +43,14 @@ def update_task(id: UUID, task_in: TaskUpdate, db: Session = Depends(get_db), cu
     
     # Log complete events
     if task_in.status == "Completed" and old_status != "Completed":
-        activity = Activity(
-            lead_id=task.lead_id,
-            activity_type="TaskDone",
-            description=f"Action Checklist Completed: {task.title}"
-        )
-        db.add(activity)
-        db.commit()
+        if task.lead_id:
+            activity = Activity(
+                lead_id=task.lead_id,
+                activity_type="TaskDone",
+                description=f"Action Checklist Completed: {task.title}"
+            )
+            db.add(activity)
+            db.commit()
         
     db.refresh(task)
     return task

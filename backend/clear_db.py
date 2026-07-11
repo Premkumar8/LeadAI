@@ -24,12 +24,12 @@ def clear_all_data():
         db.commit()
         print("Database cleared successfully.")
         
-        print("Creating default admin account (admin@avanta.ai / password123)...")
+        print("Creating default admin account (admin@swamyjewellery.com / password123)...")
         admin = User(
-            name="John Doe",
-            email="admin@avanta.ai",
+            name="Swamy Jewellery",
+            email="admin@swamyjewellery.com",
             password_hash=get_password_hash("password123"),
-            company_name="Avanta Solutions",
+            company_name="Swamy Jewellery Solutions",
             role="admin"
         )
         db.add(admin)

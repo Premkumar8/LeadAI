@@ -74,7 +74,7 @@ def trigger_sales_assistant(req: AssistantChatRequest, db: Session = Depends(get
         })
         
     system_prompt = (
-        "You are Avanta CRM AI, a premium virtual sales engineering assistant. "
+        "You are Swamy Jewellery CRM AI, a premium virtual sales engineering assistant. "
         "You have direct database read privileges. Below is the active CRM data snippet:\n\n"
         f"COMPANIES LIST:\n{companies_context}\n\n"
         f"LEADS LIST:\n{leads_context}\n\n"
@@ -101,9 +101,9 @@ def trigger_sales_assistant(req: AssistantChatRequest, db: Session = Depends(get
             names = " and ".join([f"{c['company_name']} (Score: {c['lead_score']}/100)" for c in high_leads]) if high_leads else "No leads registered yet"
             return {"response": f"Top conversion prospects: {names} based on firmographics and website intelligence."}
         elif "email" in user_query_lower or "follow" in user_query_lower:
-            return {"response": "Subject: Partnership proposal review\n\nHi there,\n\nI wanted to follow up and see if we could align on solving your current software scaling challenges.\n\nLet me know if you have 10 minutes next week.\n\nBest,\nAvanta Assistant"}
+            return {"response": "Subject: Partnership proposal review\n\nHi there,\n\nI wanted to follow up and see if we could align on solving your current software scaling challenges.\n\nLet me know if you have 10 minutes next week.\n\nBest,\nSwamy Jewellery Assistant"}
         else:
-            return {"response": f"Hello! I am your Avanta AI assistant. I parsed your question: '{user_query}'. I can analyze lead conversion rates, filter pipelines by country, or generate follow-up materials. Please configure your GEMINI_API_KEY for complete LLM capabilities."}
+            return {"response": f"Hello! I am your Swamy Jewellery AI assistant. I parsed your question: '{user_query}'. I can analyze lead conversion rates, filter pipelines by country, or generate follow-up materials. Please configure your GEMINI_API_KEY for complete LLM capabilities."}
             
     try:
         messages = [{"role": "system", "content": system_prompt}]
@@ -118,4 +118,4 @@ def trigger_sales_assistant(req: AssistantChatRequest, db: Session = Depends(get
         
         return {"response": chat_completion.choices[0].message.content}
     except Exception as e:
-        return {"response": f"Avanta AI Service encountered an error: {e}"}
+        return {"response": f"Swamy Jewellery AI Service encountered an error: {e}"}
