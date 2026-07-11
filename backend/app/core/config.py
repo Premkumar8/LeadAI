@@ -17,10 +17,20 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = "postgres"
     POSTGRES_DB: str = "avanta"
     POSTGRES_PORT: str = "5432"
+    
+    POSTGRES_URL: Optional[str] = None
+    DATABASE_URL: Optional[str] = None
 
     @computed_field
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:
+        if self.POSTGRES_URL:
+            # Vercel Supabase/Postgres integration provides this
+            # SQLAlchemy 1.4+ requires postgresql:// instead of postgres://
+            return self.POSTGRES_URL.replace("postgres://", "postgresql://")
+        if self.DATABASE_URL:
+            return self.DATABASE_URL.replace("postgres://", "postgresql://")
+            
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         
     # AI & Integration Keys
