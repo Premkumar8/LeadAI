@@ -27,11 +27,24 @@ class Settings(BaseSettings):
         url_to_use = self.POSTGRES_URL or self.DATABASE_URL
         if url_to_use:
             url_to_use = url_to_use.replace("postgres://", "postgresql://")
-            # psycopg2 crashes on Vercel's Supabase query params like "supa=base-pooler.x"
-            import re
-            url_to_use = re.sub(r'([?&])supa=[^&]*', r'\1', url_to_use)
-            url_to_use = url_to_use.rstrip('?&')
-            return url_to_use
+            
+            from urllib.parse import urlparse, parse_qsl, urlencode, urlunparse
+            parsed = urlparse(url_to_use)
+            qs = parse_qsl(parsed.query)
+            # Remove any parameter that psycopg2 doesn't like
+            filtered_qs = [(k, v) for k, v in qs if k not in ("supa", "pooler")]
+            new_query = urlencode(filtered_qs)
+            
+            # Reconstruct URL
+            new_url = urlunparse((
+                parsed.scheme,
+                parsed.netloc,
+                parsed.path,
+                parsed.params,
+                new_query,
+                parsed.fragment
+            ))
+            return new_url
             
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         
