@@ -51,6 +51,26 @@ app.add_middleware(
 
 app.include_router(api_router, prefix=settings.API_V1_STR)
 
+@app.get("/api/v1/health")
+def health_check():
+    return {"status": "ok", "project": settings.PROJECT_NAME}
+
+@app.get("/api/v1/init-db")
+def init_db_endpoint():
+    try:
+        from sqlalchemy import text
+        with engine.connect() as conn:
+            conn.execute(text("CREATE EXTENSION IF NOT EXISTS vector"))
+            conn.commit()
+    except Exception as e:
+        pass
+    
+    try:
+        Base.metadata.create_all(bind=engine)
+        return {"status": "success", "message": "Database tables created successfully."}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
+
 @app.get("/")
 def read_root():
     return {
