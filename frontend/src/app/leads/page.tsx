@@ -501,6 +501,7 @@ export default function LeadsPage() {
                     <option value="WhatsApp">WhatsApp</option>
                     <option value="Direct Call">Direct Call</option>
                     <option value="Referral">Referral</option>
+                    <option value="Stall">Stall</option>
                   </select>
                 </div>
               </div>
@@ -584,6 +585,7 @@ export default function LeadsPage() {
                     <option value="WhatsApp">WhatsApp</option>
                     <option value="Direct Call">Direct Call</option>
                     <option value="Referral">Referral</option>
+                    <option value="Stall">Stall</option>
                   </select>
                 </div>
               </div>

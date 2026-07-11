@@ -339,6 +339,7 @@ export default function ContactsPage() {
                     <option value="Website">Website</option>
                     <option value="Direct">Direct</option>
                     <option value="Reference">Reference</option>
+                    <option value="Stall">Stall</option>
                     <option value="Others">Others</option>
                   </select>
                 </div>
@@ -470,6 +471,7 @@ export default function ContactsPage() {
                     <option value="Website">Website</option>
                     <option value="Direct">Direct</option>
                     <option value="Reference">Reference</option>
+                    <option value="Stall">Stall</option>
                     <option value="Others">Others</option>
                   </select>
                 </div>
