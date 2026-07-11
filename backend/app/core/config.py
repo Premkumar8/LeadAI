@@ -24,12 +24,14 @@ class Settings(BaseSettings):
     @computed_field
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> str:
-        if self.POSTGRES_URL:
-            # Vercel Supabase/Postgres integration provides this
-            # SQLAlchemy 1.4+ requires postgresql:// instead of postgres://
-            return self.POSTGRES_URL.replace("postgres://", "postgresql://")
-        if self.DATABASE_URL:
-            return self.DATABASE_URL.replace("postgres://", "postgresql://")
+        url_to_use = self.POSTGRES_URL or self.DATABASE_URL
+        if url_to_use:
+            url_to_use = url_to_use.replace("postgres://", "postgresql://")
+            # psycopg2 crashes on Vercel's Supabase query params like "supa=base-pooler.x"
+            import re
+            url_to_use = re.sub(r'([?&])supa=[^&]*', r'\1', url_to_use)
+            url_to_use = url_to_use.rstrip('?&')
+            return url_to_use
             
         return f"postgresql://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB}"
         
