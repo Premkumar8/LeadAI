@@ -23,6 +23,7 @@ import {
   Moon,
   Receipt,
   FolderOpen,
+  Crown,
   Megaphone,
   Play
 } from "lucide-react";
@@ -137,7 +138,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const menuItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Campaigns", href: "/pipeline", icon: KanbanSquare },
-    { name: "Customers", href: "/contacts", icon: Contact2 },
+    { name: "Sales & Customers", href: "/contacts", icon: Crown },
     { name: "Execution Tracker", href: "/execution", icon: Play },
     // { name: "Meetings AI", href: "/meetings", icon: Video },
     { name: "Action Tasks", href: "/tasks", icon: CheckSquare },

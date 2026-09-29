@@ -49,6 +49,9 @@ class ContactBase(BaseModel):
     status: Optional[str] = "Waiting"
     remarks: Optional[str] = None
     feedback: Optional[str] = None
+    gold_grams: Optional[float] = 0.0
+    jewellery_item: Optional[str] = None
+    customer_tier: Optional[str] = None
 
 class ContactCreate(ContactBase):
     company_id: Optional[UUID] = None
@@ -66,6 +69,9 @@ class ContactUpdate(BaseModel):
     status: Optional[str] = None
     remarks: Optional[str] = None
     feedback: Optional[str] = None
+    gold_grams: Optional[float] = None
+    jewellery_item: Optional[str] = None
+    customer_tier: Optional[str] = None
     
 class ContactResponse(ContactBase):
     id: UUID

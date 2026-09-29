@@ -152,6 +152,37 @@ def get_dashboard_metrics(campaign_id: Optional[UUID] = None, db: Session = Depe
                 
     overview_timeline = list(timeline_dict.values())
 
+    # Gram-based customer metrics (High: >= 12g, Low: 2g to 12g)
+    high_customers = [c for c in contacts if (c.gold_grams or 0.0) >= 12.0]
+    low_customers = [c for c in contacts if 2.0 <= (c.gold_grams or 0.0) < 12.0]
+    below_2g_customers = [c for c in contacts if 0.0 < (c.gold_grams or 0.0) < 2.0]
+
+    total_high_customers = len(high_customers)
+    total_low_customers = len(low_customers)
+    total_high_grams = round(sum(c.gold_grams or 0.0 for c in high_customers), 2)
+    total_low_grams = round(sum(c.gold_grams or 0.0 for c in low_customers), 2)
+    total_gold_grams = round(sum(c.gold_grams or 0.0 for c in contacts), 2)
+
+    # Top high-value customers
+    sorted_high = sorted(high_customers, key=lambda x: x.gold_grams or 0.0, reverse=True)[:5]
+    top_high_customers = [
+        {
+            "id": str(c.id),
+            "name": c.full_name,
+            "phone": c.phone,
+            "area": c.area,
+            "jewellery_item": c.jewellery_item,
+            "gold_grams": c.gold_grams
+        }
+        for c in sorted_high
+    ]
+
+    # Gram distribution for charts
+    gram_distribution = [
+        {"name": "High Customer (≥12g)", "value": total_high_customers, "grams": total_high_grams, "color": "#F59E0B"},
+        {"name": "Low Customer (2-12g)", "value": total_low_customers, "grams": total_low_grams, "color": "#06B6D4"}
+    ]
+
     return {
         "total_leads": total_leads,
         "active_opportunities": active_opps_count,
@@ -169,5 +200,12 @@ def get_dashboard_metrics(campaign_id: Optional[UUID] = None, db: Session = Depe
         "total_customers": total_customers,
         "total_contacted": total_contacted,
         "total_waiting": total_waiting,
-        "overview_timeline": overview_timeline
+        "overview_timeline": overview_timeline,
+        "total_high_customers": total_high_customers,
+        "total_low_customers": total_low_customers,
+        "total_high_grams": total_high_grams,
+        "total_low_grams": total_low_grams,
+        "total_gold_grams": total_gold_grams,
+        "top_high_customers": top_high_customers,
+        "gram_distribution": gram_distribution
     }

@@ -69,6 +69,18 @@ class Contact(Base):
     status = Column(String(50), default="Waiting")
     remarks = Column(String(255), nullable=True)
     feedback = Column(Text, nullable=True)
+    gold_grams = Column(Float, default=0.0, nullable=True)
+    jewellery_item = Column(String(255), nullable=True)
+
+    @property
+    def customer_tier(self):
+        grams = self.gold_grams or 0.0
+        if grams >= 12.0:
+            return "High Customer"
+        elif grams >= 2.0:
+            return "Low Customer"
+        else:
+            return "Below 2g"
 
     # Relationships
     company = relationship("Company", back_populates="contacts")
