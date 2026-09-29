@@ -175,96 +175,93 @@ export default function DashboardPage() {
       {/* Customer Tier KPIs (Gram Base: High Customer >= 12g, Low Customer 2 to 12g) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* High Customer (>= 12g) */}
-        <div className="bg-gradient-to-br from-amber-950/40 via-slate-900/60 to-slate-900/40 border border-amber-500/40 p-6 rounded-2xl shadow-[0_0_25px_rgba(245,158,11,0.12)] flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="bg-white dark:bg-slate-900/90 bg-gradient-to-br from-amber-500/[0.08] via-amber-500/[0.02] to-transparent border-2 border-amber-400 dark:border-amber-500/50 p-6 rounded-2xl shadow-md shadow-amber-500/10 flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-lg">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center">
-                <Crown size={18} className="text-amber-400" />
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-amber-500 flex items-center justify-center text-white shadow-md shadow-amber-500/30">
+                <Crown size={22} className="stroke-[2.5]" />
               </div>
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-amber-400 block">High Customer (≥12g)</span>
-                <span className="text-[10px] text-slate-400">VIP & Bridal Jewellery</span>
+                <span className="text-sm font-black uppercase tracking-wider text-amber-900 dark:text-amber-300 block">High Customer (≥12g)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">VIP & Bridal Jewellery</span>
               </div>
             </div>
             <a 
               href="/contacts" 
-              className="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30 transition-all flex items-center gap-1"
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-500 hover:bg-amber-600 text-white shadow-sm transition-all flex items-center gap-1 cursor-pointer"
             >
               <span>View</span>
-              <ArrowUpRight size={10} />
+              <ArrowUpRight size={13} />
             </a>
           </div>
           <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-black text-amber-300">{metrics?.total_high_customers || 0}</span>
-              <span className="text-slate-400 text-xs font-semibold">Customers</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-5xl font-black text-amber-700 dark:text-amber-400 tracking-tight">{metrics?.total_high_customers || 0}</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-bold">Customers</span>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-              <span className="text-slate-400">Total Gold Weight:</span>
-              <span className="font-black text-amber-400 text-sm">{metrics?.total_high_grams || 0} Grams</span>
+            <div className="mt-4 pt-3.5 border-t border-amber-200/80 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Total Gold Weight:</span>
+              <span className="font-black text-amber-900 dark:text-amber-300 text-base">{metrics?.total_high_grams || 0} Grams</span>
             </div>
           </div>
         </div>
 
         {/* Low Customer (2 - 12g) */}
-        <div className="bg-gradient-to-br from-cyan-950/40 via-slate-900/60 to-slate-900/40 border border-cyan-500/40 p-6 rounded-2xl shadow-[0_0_25px_rgba(6,182,212,0.12)] flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="bg-white dark:bg-slate-900/90 bg-gradient-to-br from-sky-500/[0.08] via-sky-500/[0.02] to-transparent border-2 border-sky-400 dark:border-cyan-500/50 p-6 rounded-2xl shadow-md shadow-sky-500/10 flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-lg">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center">
-                <Sparkles size={18} className="text-cyan-400" />
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-sky-500 flex items-center justify-center text-white shadow-md shadow-sky-500/30">
+                <Sparkles size={22} className="stroke-[2.5]" />
               </div>
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-cyan-400 block">Low Customer (2–12g)</span>
-                <span className="text-[10px] text-slate-400">Daily Wear & Lightweight</span>
+                <span className="text-sm font-black uppercase tracking-wider text-sky-900 dark:text-cyan-300 block">Low Customer (2–12g)</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">Daily Wear & Lightweight</span>
               </div>
             </div>
             <a 
               href="/contacts" 
-              className="px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 hover:bg-cyan-500/30 transition-all flex items-center gap-1"
+              className="px-3 py-1.5 rounded-lg text-xs font-bold bg-sky-500 hover:bg-sky-600 text-white shadow-sm transition-all flex items-center gap-1 cursor-pointer"
             >
               <span>View</span>
-              <ArrowUpRight size={10} />
+              <ArrowUpRight size={13} />
             </a>
           </div>
           <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-black text-cyan-300">{metrics?.total_low_customers || 0}</span>
-              <span className="text-slate-400 text-xs font-semibold">Customers</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-5xl font-black text-sky-700 dark:text-cyan-400 tracking-tight">{metrics?.total_low_customers || 0}</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-bold">Customers</span>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-              <span className="text-slate-400">Total Gold Weight:</span>
-              <span className="font-black text-cyan-400 text-sm">{metrics?.total_low_grams || 0} Grams</span>
+            <div className="mt-4 pt-3.5 border-t border-sky-200/80 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Total Gold Weight:</span>
+              <span className="font-black text-sky-900 dark:text-cyan-300 text-base">{metrics?.total_low_grams || 0} Grams</span>
             </div>
           </div>
         </div>
 
         {/* Total Gold Grams Tracked */}
-        <div className="bg-gradient-to-br from-emerald-950/40 via-slate-900/60 to-slate-900/40 border border-emerald-500/40 p-6 rounded-2xl shadow-[0_0_25px_rgba(16,185,129,0.12)] flex flex-col justify-between relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div className="bg-white dark:bg-slate-900/90 bg-gradient-to-br from-emerald-500/[0.08] via-emerald-500/[0.02] to-transparent border-2 border-emerald-400 dark:border-emerald-500/50 p-6 rounded-2xl shadow-md shadow-emerald-500/10 flex flex-col justify-between relative overflow-hidden transition-all hover:shadow-lg">
           <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center">
-                <Scale size={18} className="text-emerald-400" />
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-emerald-600 flex items-center justify-center text-white shadow-md shadow-emerald-600/30">
+                <Scale size={22} className="stroke-[2.5]" />
               </div>
               <div>
-                <span className="text-xs font-black uppercase tracking-wider text-emerald-400 block">Total Gold Tracked</span>
-                <span className="text-[10px] text-slate-400">All Purchases</span>
+                <span className="text-sm font-black uppercase tracking-wider text-emerald-900 dark:text-emerald-300 block">Total Gold Tracked</span>
+                <span className="text-xs text-slate-600 dark:text-slate-400 font-medium">Cumulative Purchases</span>
               </div>
             </div>
-            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-              Cumulative
+            <span className="px-2.5 py-1 rounded-lg text-xs font-extrabold bg-emerald-100 text-emerald-900 dark:bg-emerald-500/20 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-500/40">
+              Active
             </span>
           </div>
           <div>
-            <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-black text-emerald-300">{metrics?.total_gold_grams || 0}</span>
-              <span className="text-slate-400 text-xs font-semibold">Grams</span>
+            <div className="flex items-baseline gap-2 mt-1">
+              <span className="text-5xl font-black text-emerald-700 dark:text-emerald-400 tracking-tight">{metrics?.total_gold_grams || 0}</span>
+              <span className="text-slate-700 dark:text-slate-300 text-sm font-bold">Grams</span>
             </div>
-            <div className="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
-              <span className="text-slate-400">Avg Grams / Customer:</span>
-              <span className="font-black text-emerald-400 text-sm">
+            <div className="mt-4 pt-3.5 border-t border-emerald-200/80 dark:border-slate-800 flex items-center justify-between">
+              <span className="text-slate-600 dark:text-slate-400 text-xs font-semibold">Avg Grams / Customer:</span>
+              <span className="font-black text-emerald-900 dark:text-emerald-300 text-base">
                 {metrics?.total_customers ? ((metrics.total_gold_grams || 0) / metrics.total_customers).toFixed(1) : 0}g
               </span>
             </div>
@@ -274,58 +271,58 @@ export default function DashboardPage() {
 
       {/* Top High-Value VIP Jewellery Buyers */}
       {metrics?.top_high_customers && metrics.top_high_customers.length > 0 && (
-        <div className="bg-slate-900/40 backdrop-blur-md border border-slate-800/60 p-6 rounded-2xl shadow-lg">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-800/80">
-            <div className="flex items-center gap-2.5">
-              <div className="w-7 h-7 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                <Crown className="text-amber-400" size={15} />
+        <div className="bg-white dark:bg-slate-900/90 border-2 border-slate-200 dark:border-slate-800 p-6 rounded-2xl shadow-md">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-200 dark:border-slate-800">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-white shadow-sm">
+                <Crown size={20} className="stroke-[2.5]" />
               </div>
               <div>
-                <h3 className="font-extrabold text-slate-100 text-base">Top High-Value VIP Jewellery Buyers (≥12g)</h3>
-                <p className="text-[11px] text-slate-400">Highest gram purchases for exclusive outreach and relationship management</p>
+                <h3 className="font-black text-slate-900 dark:text-slate-100 text-lg tracking-tight">Top High-Value VIP Jewellery Buyers (≥12g)</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">Highest gram purchases for exclusive outreach and relationship management</p>
               </div>
             </div>
             <a 
               href="/contacts" 
-              className="text-xs font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1 transition-colors"
+              className="text-xs font-black text-white bg-amber-500 hover:bg-amber-600 px-4 py-2 rounded-xl shadow-sm transition-all flex items-center gap-1.5 cursor-pointer"
             >
               <span>View all in Customer Roster</span>
-              <ArrowUpRight size={13} />
+              <ArrowUpRight size={14} />
             </a>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs whitespace-nowrap">
               <thead>
-                <tr className="text-slate-400 font-bold uppercase tracking-wider text-[10px] border-b border-slate-800/60 bg-slate-950/30">
-                  <th className="py-2.5 px-3">Customer Name</th>
-                  <th className="py-2.5 px-3">Jewellery Item</th>
-                  <th className="py-2.5 px-3">Gold Weight</th>
-                  <th className="py-2.5 px-3">Location / Area</th>
-                  <th className="py-2.5 px-3 text-right">Quick Contact</th>
+                <tr className="text-slate-700 dark:text-slate-300 font-black uppercase tracking-wider text-[11px] border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950/50">
+                  <th className="py-3 px-4">Customer Name</th>
+                  <th className="py-3 px-4">Jewellery Item</th>
+                  <th className="py-3 px-4">Gold Weight</th>
+                  <th className="py-3 px-4">Location / Area</th>
+                  <th className="py-3 px-4 text-right">Quick Contact</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-850">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                 {metrics.top_high_customers.map((c: any, idx: number) => {
                   const cleanPhone = c.phone?.replace(/[^0-9]/g, "");
                   return (
-                    <tr key={idx} className="hover:bg-slate-850/40 transition-colors">
-                      <td className="py-3 px-3 font-bold text-slate-200">{c.name}</td>
-                      <td className="py-3 px-3 text-slate-300">{c.jewellery_item || "Bridal Gold Jewellery"}</td>
-                      <td className="py-3 px-3">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-black bg-amber-500/20 text-amber-300 border border-amber-500/40">
-                          <Crown size={11} className="text-amber-400" /> {c.gold_grams} Grams
+                    <tr key={idx} className="hover:bg-amber-50/50 dark:hover:bg-slate-800/40 transition-colors">
+                      <td className="py-3.5 px-4 font-black text-slate-900 dark:text-slate-100 text-sm">{c.name}</td>
+                      <td className="py-3.5 px-4 font-semibold text-slate-800 dark:text-slate-200 text-xs">{c.jewellery_item || "Bridal Gold Jewellery"}</td>
+                      <td className="py-3.5 px-4">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-amber-100 dark:bg-amber-500/20 text-amber-950 dark:text-amber-300 border-2 border-amber-300 dark:border-amber-500/50 shadow-xs">
+                          <Crown size={13} className="text-amber-600 dark:text-amber-400 stroke-[2.5]" /> {c.gold_grams} Grams
                         </span>
                       </td>
-                      <td className="py-3 px-3 text-slate-400">{c.area || "Tamil Nadu"}</td>
-                      <td className="py-3 px-3 text-right">
+                      <td className="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-medium text-xs">{c.area || "Tamil Nadu"}</td>
+                      <td className="py-3.5 px-4 text-right">
                         {c.phone && (
                           <a
                             href={`https://wa.me/${cleanPhone}?text=Hi%20${encodeURIComponent(c.name)},%20Greetings%20from%20Swamy%20Jewellery!%20We%20have%20exclusive%20bridal%20gold%20collections%20for%20you.`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 font-bold text-[11px] transition-all"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xs shadow-sm shadow-emerald-600/30 transition-all cursor-pointer"
                           >
-                            <MessageCircle size={12} />
+                            <MessageCircle size={14} className="stroke-[2.5]" />
                             <span>WhatsApp</span>
                           </a>
                         )}

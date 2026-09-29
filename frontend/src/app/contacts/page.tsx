@@ -248,37 +248,37 @@ export default function ContactsPage() {
       {/* Gram Tier KPI Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Customers */}
-        <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 p-5 rounded-2xl flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 p-5 rounded-2xl shadow-sm flex items-center justify-between">
           <div>
-            <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Total Customer Base</p>
-            <p className="text-3xl font-black text-white mt-1">{stats.total}</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Registered jewellery buyers</p>
+            <p className="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Total Customer Base</p>
+            <p className="text-3xl font-black text-slate-900 dark:text-white mt-1">{stats.total}</p>
+            <p className="text-xs text-slate-500 mt-0.5 font-medium">Registered jewellery buyers</p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center">
-            <Users className="text-slate-300" size={22} />
+          <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center">
+            <Users className="text-slate-700 dark:text-slate-300" size={24} />
           </div>
         </div>
 
         {/* High Customers (>=12g) */}
         <div 
           onClick={() => setTierFilter("HIGH")}
-          className={`cursor-pointer p-5 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-5 rounded-2xl border-2 transition-all ${
             tierFilter === "HIGH" 
-              ? "bg-amber-950/40 border-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.2)]" 
-              : "bg-slate-900/50 border-slate-800/80 hover:border-amber-500/40"
+              ? "bg-amber-50 dark:bg-amber-950/40 border-amber-500 shadow-md shadow-amber-500/20 ring-2 ring-amber-400/50" 
+              : "bg-white dark:bg-slate-900 border-amber-300 dark:border-amber-500/40 hover:border-amber-500 shadow-sm"
           }`}
         >
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-1.5">
-                <Crown size={14} className="text-amber-400" />
-                <p className="text-amber-400 text-xs font-bold uppercase tracking-wider">High Customer (≥12g)</p>
+                <Crown size={15} className="text-amber-600 dark:text-amber-400 stroke-[2.5]" />
+                <p className="text-amber-900 dark:text-amber-300 text-xs font-black uppercase tracking-wider">High Customer (≥12g)</p>
               </div>
-              <p className="text-3xl font-black text-amber-300 mt-1">{stats.highCount}</p>
-              <p className="text-[11px] text-amber-400/70 mt-0.5 font-medium">{stats.highGrams}g Total Weight</p>
+              <p className="text-3xl font-black text-amber-700 dark:text-amber-400 mt-1">{stats.highCount}</p>
+              <p className="text-xs text-amber-900 dark:text-amber-300/90 mt-0.5 font-bold">{stats.highGrams}g Total Weight</p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center">
-              <Crown className="text-amber-400" size={22} />
+            <div className="w-12 h-12 rounded-xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/30">
+              <Crown size={24} className="stroke-[2.5]" />
             </div>
           </div>
         </div>
@@ -286,89 +286,89 @@ export default function ContactsPage() {
         {/* Low Customers (2-12g) */}
         <div 
           onClick={() => setTierFilter("LOW")}
-          className={`cursor-pointer p-5 rounded-2xl border transition-all ${
+          className={`cursor-pointer p-5 rounded-2xl border-2 transition-all ${
             tierFilter === "LOW" 
-              ? "bg-cyan-950/40 border-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.2)]" 
-              : "bg-slate-900/50 border-slate-800/80 hover:border-cyan-500/40"
+              ? "bg-sky-50 dark:bg-cyan-950/40 border-sky-500 shadow-md shadow-sky-500/20 ring-2 ring-sky-400/50" 
+              : "bg-white dark:bg-slate-900 border-sky-300 dark:border-cyan-500/40 hover:border-sky-500 shadow-sm"
           }`}
         >
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-1.5">
-                <Sparkles size={14} className="text-cyan-400" />
-                <p className="text-cyan-400 text-xs font-bold uppercase tracking-wider">Low Customer (2–12g)</p>
+                <Sparkles size={15} className="text-sky-600 dark:text-cyan-400 stroke-[2.5]" />
+                <p className="text-sky-900 dark:text-cyan-300 text-xs font-black uppercase tracking-wider">Low Customer (2–12g)</p>
               </div>
-              <p className="text-3xl font-black text-cyan-300 mt-1">{stats.lowCount}</p>
-              <p className="text-[11px] text-cyan-400/70 mt-0.5 font-medium">{stats.lowGrams}g Total Weight</p>
+              <p className="text-3xl font-black text-sky-700 dark:text-cyan-400 mt-1">{stats.lowCount}</p>
+              <p className="text-xs text-sky-900 dark:text-cyan-300/90 mt-0.5 font-bold">{stats.lowGrams}g Total Weight</p>
             </div>
-            <div className="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
-              <Sparkles className="text-cyan-400" size={22} />
+            <div className="w-12 h-12 rounded-xl bg-sky-500 text-white flex items-center justify-center shadow-md shadow-sky-500/30">
+              <Sparkles size={24} className="stroke-[2.5]" />
             </div>
           </div>
         </div>
 
         {/* Total Gold Weight */}
-        <div className="bg-slate-900/50 backdrop-blur-md border border-slate-800/80 p-5 rounded-2xl flex items-center justify-between">
+        <div className="bg-white dark:bg-slate-900 border-2 border-emerald-300 dark:border-emerald-500/40 p-5 rounded-2xl shadow-sm flex items-center justify-between">
           <div>
-            <p className="text-slate-400 text-xs font-semibold uppercase tracking-wider">Total Gold Weight</p>
-            <p className="text-3xl font-black text-emerald-400 mt-1">{stats.totalGrams}g</p>
-            <p className="text-[11px] text-slate-500 mt-0.5">Tracked purchases</p>
+            <p className="text-emerald-900 dark:text-emerald-300 text-xs font-black uppercase tracking-wider">Total Gold Weight</p>
+            <p className="text-3xl font-black text-emerald-700 dark:text-emerald-400 mt-1">{stats.totalGrams}g</p>
+            <p className="text-xs text-slate-500 mt-0.5 font-medium">Tracked purchases</p>
           </div>
-          <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center">
-            <Scale className="text-emerald-400" size={22} />
+          <div className="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center shadow-md shadow-emerald-600/30">
+            <Scale size={24} className="stroke-[2.5]" />
           </div>
         </div>
       </div>
 
       {/* Directory Table Grid */}
-      <div className="bg-slate-900/40 border border-slate-800/80 rounded-2xl p-5 flex flex-col gap-4 shadow-xl">
+      <div className="bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 rounded-2xl p-5 flex flex-col gap-4 shadow-sm">
         {/* Filter Controls & Search */}
         <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
           {/* Tier Tabs */}
-          <div className="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-xl border border-slate-800 text-xs font-bold">
+          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-950 p-1.5 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-bold">
             <button
               onClick={() => setTierFilter("ALL")}
-              className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer ${
+              className={`px-3.5 py-2 rounded-lg transition-all cursor-pointer font-black ${
                 tierFilter === "ALL" 
-                  ? "bg-slate-800 text-white shadow-sm" 
-                  : "text-slate-400 hover:text-slate-200"
+                  ? "bg-slate-900 text-white dark:bg-white dark:text-slate-950 shadow-sm" 
+                  : "text-slate-700 dark:text-slate-300 hover:text-slate-950 hover:bg-slate-200 dark:hover:bg-slate-800"
               }`}
             >
               All Customers ({stats.total})
             </button>
             <button
               onClick={() => setTierFilter("HIGH")}
-              className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer font-black ${
                 tierFilter === "HIGH" 
-                  ? "bg-amber-500/20 text-amber-300 border border-amber-500/40" 
-                  : "text-slate-400 hover:text-amber-400"
+                  ? "bg-amber-500 text-white shadow-sm" 
+                  : "text-amber-800 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-500/20"
               }`}
             >
-              <Crown size={12} className="text-amber-400" />
+              <Crown size={14} className="stroke-[2.5]" />
               <span>High (≥12g) ({stats.highCount})</span>
             </button>
             <button
               onClick={() => setTierFilter("LOW")}
-              className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer ${
+              className={`px-3.5 py-2 rounded-lg transition-all flex items-center gap-1.5 cursor-pointer font-black ${
                 tierFilter === "LOW" 
-                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" 
-                  : "text-slate-400 hover:text-cyan-400"
+                  ? "bg-sky-500 text-white shadow-sm" 
+                  : "text-sky-800 dark:text-cyan-300 hover:bg-sky-100 dark:hover:bg-cyan-500/20"
               }`}
             >
-              <Sparkles size={12} className="text-cyan-400" />
+              <Sparkles size={14} className="stroke-[2.5]" />
               <span>Low (2-12g) ({stats.lowCount})</span>
             </button>
           </div>
 
           {/* Search Box */}
           <div className="relative flex-1 md:max-w-md">
-            <Search className="absolute left-3.5 top-3 text-slate-500" size={16} />
+            <Search className="absolute left-3.5 top-3.5 text-slate-500" size={16} />
             <input 
               type="text" 
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by customer name, phone, area, or item..."
-              className="w-full bg-slate-950 border border-slate-800 focus:border-amber-500 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-200 outline-none placeholder-slate-600 transition-all"
+              className="w-full bg-slate-50 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 focus:border-amber-500 rounded-xl pl-10 pr-4 py-2.5 text-xs sm:text-sm text-slate-900 dark:text-slate-100 font-medium outline-none placeholder-slate-500 transition-all"
             />
           </div>
         </div>
@@ -377,7 +377,7 @@ export default function ContactsPage() {
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse whitespace-nowrap">
             <thead>
-              <tr className="border-b border-slate-800 text-[11px] text-slate-400 font-extrabold uppercase tracking-wider bg-slate-950/40">
+              <tr className="border-b border-slate-200 dark:border-slate-800 text-[11px] text-slate-800 dark:text-slate-200 font-black uppercase tracking-wider bg-slate-100 dark:bg-slate-950/50">
                 <th className="py-3 px-3">Customer Details</th>
                 <th className="py-3 px-3">Jewellery Item & Grams</th>
                 <th className="py-3 px-3">Customer Tier</th>
@@ -387,17 +387,17 @@ export default function ContactsPage() {
                 <th className="py-3 px-3 text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-850/60 text-xs sm:text-sm">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-800 text-xs sm:text-sm">
               {loading ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-500">
+                  <td colSpan={7} className="py-12 text-center text-slate-500 font-bold">
                     <Loader2 className="h-6 w-6 animate-spin text-amber-500 mx-auto mb-2" />
                     Loading customer directory...
                   </td>
                 </tr>
               ) : filteredContacts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-500">
+                  <td colSpan={7} className="py-12 text-center text-slate-500 font-bold">
                     No customers found matching current filters.
                   </td>
                 </tr>
@@ -410,22 +410,22 @@ export default function ContactsPage() {
                   const cleanPhone = getCleanPhone(c.phone);
 
                   return (
-                    <tr key={c.id} className="hover:bg-slate-850/40 transition-all">
+                    <tr key={c.id} className="hover:bg-amber-50/40 dark:hover:bg-slate-800/40 transition-all">
                       {/* Name */}
                       <td className="py-3.5 px-3">
-                        <div className="font-bold text-slate-100 flex items-center gap-2">
+                        <div className="font-black text-slate-900 dark:text-slate-100 flex items-center gap-2.5">
                           <div className={`w-8 h-8 rounded-lg flex items-center justify-center font-black text-xs ${
                             isHigh 
-                              ? "bg-amber-500/20 text-amber-300 border border-amber-500/30" 
+                              ? "bg-amber-500 text-white shadow-xs" 
                               : isLow 
-                              ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" 
-                              : "bg-slate-800 text-slate-300"
+                              ? "bg-sky-500 text-white shadow-xs" 
+                              : "bg-slate-300 text-slate-800 dark:bg-slate-800 dark:text-slate-300"
                           }`}>
                             {c.full_name?.charAt(0) || "C"}
                           </div>
                           <div>
                             <span className="block">{c.full_name}</span>
-                            <span className="text-[11px] text-slate-500 font-normal">{c.job_title || "Customer"}</span>
+                            <span className="text-[11px] text-slate-500 font-medium">{c.job_title || "Customer"}</span>
                           </div>
                         </div>
                       </td>
@@ -433,10 +433,10 @@ export default function ContactsPage() {
                       {/* Item & Grams */}
                       <td className="py-3.5 px-3">
                         <div>
-                          <p className="font-semibold text-slate-200 text-xs">
+                          <p className="font-bold text-slate-900 dark:text-slate-200 text-xs">
                             {c.jewellery_item || "General Jewellery"}
                           </p>
-                          <p className="text-amber-400 font-bold text-xs mt-0.5">
+                          <p className="text-amber-800 dark:text-amber-400 font-black text-xs mt-0.5">
                             {grams > 0 ? `${grams.toFixed(1)} Grams` : "Unspecified"}
                           </p>
                         </div>
@@ -445,17 +445,17 @@ export default function ContactsPage() {
                       {/* Tier Badge */}
                       <td className="py-3.5 px-3">
                         {isHigh ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-amber-500/20 to-amber-600/20 text-amber-300 border border-amber-500/40 shadow-sm">
-                            <Crown size={12} className="text-amber-400" />
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black bg-amber-100 dark:bg-amber-500/20 text-amber-950 dark:text-amber-300 border-2 border-amber-300 dark:border-amber-500/50 shadow-xs">
+                            <Crown size={13} className="text-amber-600 dark:text-amber-400 stroke-[2.5]" />
                             <span>High Customer (≥12g)</span>
                           </span>
                         ) : isLow ? (
-                          <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-gradient-to-r from-cyan-500/20 to-cyan-600/20 text-cyan-300 border border-cyan-500/40 shadow-sm">
-                            <Sparkles size={12} className="text-cyan-400" />
-                            <span>Low Customer (2-12g)</span>
+                          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-black bg-sky-100 dark:bg-cyan-500/20 text-sky-950 dark:text-cyan-300 border-2 border-sky-300 dark:border-cyan-500/50 shadow-xs">
+                            <Sparkles size={13} className="text-sky-600 dark:text-cyan-400 stroke-[2.5]" />
+                            <span>Low Customer (2–12g)</span>
                           </span>
                         ) : (
-                          <span className="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-slate-800 text-slate-400">
+                          <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-semibold bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-400">
                             Below 2g
                           </span>
                         )}
@@ -467,32 +467,32 @@ export default function ContactsPage() {
                           <div className="flex items-center gap-2">
                             {c.phone ? (
                               <>
-                                <span className="text-slate-300 font-medium text-xs">{c.phone}</span>
+                                <span className="text-slate-800 dark:text-slate-200 font-bold text-xs">{c.phone}</span>
                                 <a
                                   href={`https://wa.me/${cleanPhone}?text=Hi%20${encodeURIComponent(c.full_name)},%20Greetings%20from%20Swamy%20Jewellery!%20We%20have%20new%20arrivals%20in%20gold%20jewellery.`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold transition-all"
+                                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-[11px] shadow-sm shadow-emerald-600/30 transition-all cursor-pointer"
                                   title="Send WhatsApp message"
                                 >
-                                  <MessageCircle size={10} />
+                                  <MessageCircle size={13} className="stroke-[2.5]" />
                                   <span>WhatsApp</span>
                                 </a>
                               </>
                             ) : (
-                              <span className="text-slate-600 text-xs">No Phone</span>
+                              <span className="text-slate-400 text-xs font-medium">No Phone</span>
                             )}
                           </div>
                           {c.email && (
-                            <span className="text-slate-500 text-[11px] truncate max-w-[160px]">{c.email}</span>
+                            <span className="text-slate-500 text-[11px] font-medium truncate max-w-[160px]">{c.email}</span>
                           )}
                         </div>
                       </td>
 
                       {/* Area */}
                       <td className="py-3.5 px-3">
-                        <div className="flex items-center gap-1.5 text-slate-300 text-xs">
-                          <MapPin size={12} className="text-slate-500 shrink-0" />
+                        <div className="flex items-center gap-1.5 text-slate-700 dark:text-slate-300 text-xs font-medium">
+                          <MapPin size={13} className="text-slate-500 shrink-0" />
                           <span className="truncate max-w-[140px]">{c.area || c.address || "Tamil Nadu"}</span>
                         </div>
                       </td>
@@ -501,12 +501,12 @@ export default function ContactsPage() {
                       <td className="py-3.5 px-3">
                         <div className="flex flex-col gap-1 text-xs">
                           {campaign && (
-                            <div className="flex items-center gap-1 text-amber-400 font-medium">
-                              <Megaphone size={11} />
+                            <div className="flex items-center gap-1 text-amber-800 dark:text-amber-400 font-bold">
+                              <Megaphone size={12} />
                               <span className="truncate max-w-[130px]">{campaign.name}</span>
                             </div>
                           )}
-                          <span className="text-slate-500 text-[11px]">{c.lead_source || "Store Walk-in"}</span>
+                          <span className="text-slate-600 dark:text-slate-400 text-[11px] font-medium">{c.lead_source || "Store Walk-in"}</span>
                         </div>
                       </td>
 
