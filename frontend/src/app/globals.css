@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* dark: variants follow the app's theme toggle (.dark on <html>), not the OS preference */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --bg-main: #f8fafc;
   --bg-sidebar: #ffffff;
@@ -54,7 +57,12 @@
   --color-slate-650: var(--text-muted);
   
   --color-white: var(--text-bright);
-  
+
+  /* Fixed colors that never flip with the theme — use on solid colored
+     backgrounds (amber/sky/emerald buttons, badges, avatars) */
+  --color-snow: #ffffff;
+  --color-ink: #0f172a;
+
   --animate-fade-in: fade-in 0.3s ease-out;
   --animate-scale-in: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;

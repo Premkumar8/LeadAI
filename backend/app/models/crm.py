@@ -85,6 +85,24 @@ class Contact(Base):
     # Relationships
     company = relationship("Company", back_populates="contacts")
     campaign = relationship("Campaign", back_populates="contacts")
+    sales = relationship("Sale", back_populates="contact", cascade="all, delete-orphan", order_by="Sale.sale_date.desc()")
+
+
+class Sale(Base):
+    __tablename__ = "sales"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    contact_id = Column(UUID(as_uuid=True), ForeignKey("contacts.id", ondelete="CASCADE"), nullable=False, index=True)
+    campaign_id = Column(UUID(as_uuid=True), ForeignKey("campaigns.id", ondelete="SET NULL"), nullable=True)
+    jewellery_item = Column(String(255), nullable=True)
+    gold_grams = Column(Float, default=0.0, nullable=False)
+    amount = Column(Float, nullable=True)
+    sale_date = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    notes = Column(Text, nullable=True)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    # Relationships
+    contact = relationship("Contact", back_populates="sales")
 
 
 class Lead(Base):

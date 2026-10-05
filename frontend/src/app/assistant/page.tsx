@@ -117,7 +117,7 @@ export default function AssistantPage() {
             })}
             {loading && (
               <div className="flex gap-3 mr-auto items-center">
-                <div className="h-8 w-8 rounded-lg bg-amber-600 flex items-center justify-center text-white">
+                <div className="h-8 w-8 rounded-lg bg-amber-600 flex items-center justify-center text-snow">
                   <Bot size={16} />
                 </div>
                 <div className="p-3 bg-slate-950 border border-slate-900 rounded-2xl flex items-center gap-2 text-xs text-slate-500 font-semibold">
@@ -149,7 +149,7 @@ export default function AssistantPage() {
               <button
                 type="submit"
                 disabled={loading || !input.trim()}
-                className="px-4 py-3 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer"
+                className="px-4 py-3 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-snow text-xs font-bold rounded-xl transition-all shadow-md flex items-center gap-1 cursor-pointer"
               >
                 <Send size={14} />
                 <span className="hidden sm:inline">Send Query</span>

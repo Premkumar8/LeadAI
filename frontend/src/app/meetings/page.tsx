@@ -167,7 +167,7 @@ export default function MeetingsPage() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Log Sync Meeting</span>
@@ -270,7 +270,7 @@ export default function MeetingsPage() {
                   <button
                     onClick={handleSummarize}
                     disabled={summarizing || !transcript.trim()}
-                    className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+                    className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-snow text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
                   >
                     {summarizing ? (
                       <>
@@ -387,7 +387,7 @@ export default function MeetingsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl"
                 >
                   Log Meeting
                 </button>
@@ -451,7 +451,7 @@ export default function MeetingsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

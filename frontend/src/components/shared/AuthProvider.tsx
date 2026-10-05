@@ -23,9 +23,9 @@ import {
   Moon,
   Receipt,
   FolderOpen,
-  Crown,
   Megaphone,
-  Play
+  ShoppingBag,
+  UserRound
 } from "lucide-react";
 import { api } from "@/lib/api";
 
@@ -138,8 +138,8 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
   const menuItems = [
     { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
     { name: "Campaigns", href: "/pipeline", icon: KanbanSquare },
-    { name: "Sales & Customers", href: "/contacts", icon: Crown },
-    { name: "Execution Tracker", href: "/execution", icon: Play },
+    { name: "Sales", href: "/contacts", icon: ShoppingBag },
+    { name: "Customer", href: "/execution", icon: UserRound },
     // { name: "Meetings AI", href: "/meetings", icon: Video },
     { name: "Action Tasks", href: "/tasks", icon: CheckSquare },
     // { name: "AI Sales Assistant", href: "/assistant", icon: Bot, highlight: true },
@@ -150,7 +150,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       {/* Mobile Toggle header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-slate-950/80 backdrop-blur-md border-b border-slate-900 flex items-center justify-between px-4 z-40">
         <div className="flex items-center gap-2">
-          <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-white shadow-md">
+          <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-snow shadow-md">
             S
           </div>
           <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent">
@@ -174,7 +174,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         <div>
           {/* Sidebar Logo */}
           <div className="h-16 flex items-center gap-2 px-6 border-b border-slate-900">
-            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-white shadow-lg shadow-amber-500/10">
+            <div className="h-9 w-9 rounded-lg bg-gradient-to-tr from-amber-500 to-amber-400 flex items-center justify-center font-bold text-snow shadow-lg shadow-amber-500/10">
               S
             </div>
             <span className="font-black text-xl tracking-tight bg-gradient-to-r from-amber-400 to-amber-400 bg-clip-text text-transparent">
@@ -198,7 +198,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                   className={`
                     flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 group
                     ${isActive 
-                      ? "bg-gradient-to-r from-amber-500 to-amber-500 text-white shadow-lg shadow-amber-500/15 font-semibold" 
+                      ? "bg-gradient-to-r from-amber-500 to-amber-500 text-snow shadow-lg shadow-amber-500/15 font-semibold" 
                       : "text-slate-400 hover:bg-slate-900/60 hover:text-slate-100"
                     }
                     ${item.highlight ? "border border-amber-500/20 bg-amber-500/5" : ""}
@@ -212,7 +212,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
                     </span>
                   )}
                   {item.href === "/finance" && unpaidCount > 0 && (
-                    <span className="text-[10px] font-bold bg-rose-500 text-white px-2 py-0.5 rounded-full animate-pulse shadow-md shadow-rose-500/20">
+                    <span className="text-[10px] font-bold bg-rose-500 text-snow px-2 py-0.5 rounded-full animate-pulse shadow-md shadow-rose-500/20">
                       {unpaidCount} Alert
                     </span>
                   )}
@@ -256,7 +256,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
         <header className="hidden lg:flex h-16 border-b border-slate-900 bg-slate-950/40 backdrop-blur-md items-center justify-between px-8 sticky top-0 z-35">
           <div className="flex items-center">
             <span className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-              {pathname === "/dashboard" ? "Overview" : pathname.substring(1).replace("-", " ")}
+              {pathname === "/dashboard" ? "Overview" : menuItems.find(m => m.href === pathname)?.name || pathname.substring(1).replace("-", " ")}
             </span>
           </div>
           

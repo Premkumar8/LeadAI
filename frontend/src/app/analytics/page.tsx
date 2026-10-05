@@ -279,7 +279,7 @@ export default function AnalyticsPage() {
             <button
               type="submit"
               disabled={generatingProposal}
-              className="w-full py-2.5 bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-amber-600/10 disabled:opacity-50"
+              className="w-full py-2.5 bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-snow font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-lg shadow-amber-600/10 disabled:opacity-50"
             >
               {generatingProposal ? (
                 <>

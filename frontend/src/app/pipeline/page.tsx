@@ -175,7 +175,7 @@ export default function KanbanPage() {
         </div>
         <button 
           onClick={() => { resetForm(); setShowAddModal(true); }}
-          className="bg-gradient-to-r from-amber-500 to-amber-500 text-white px-4 py-2.5 rounded-xl font-bold shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all hover:-translate-y-0.5 flex items-center gap-1.5 text-sm"
+          className="bg-gradient-to-r from-amber-500 to-amber-500 text-snow px-4 py-2.5 rounded-xl font-bold shadow-lg shadow-amber-500/20 hover:shadow-amber-500/40 transition-all hover:-translate-y-0.5 flex items-center gap-1.5 text-sm"
         >
           <Plus size={16} />
           Add Campaign
@@ -366,7 +366,7 @@ export default function KanbanPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-sm font-bold rounded-xl shadow-md shadow-amber-600/20 transition-all"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-sm font-bold rounded-xl shadow-md shadow-amber-600/20 transition-all"
                 >
                   {showEditModal ? "Save Changes" : "Create Campaign"}
                 </button>

@@ -81,6 +81,59 @@ class ContactResponse(ContactBase):
         from_attributes = True
 
 
+# Bulk import (Excel / CSV) — email is a plain string here so one bad cell
+# doesn't reject the whole upload; it's validated per row in the endpoint.
+class ContactImportRow(BaseModel):
+    full_name: str
+    phone: Optional[str] = None
+    email: Optional[str] = None
+    area: Optional[str] = None
+    address: Optional[str] = None
+    lead_source: Optional[str] = None
+    remarks: Optional[str] = None
+
+class ContactBulkImport(BaseModel):
+    campaign_id: Optional[UUID] = None
+    contacts: List[ContactImportRow]
+
+class ContactImportSkipped(BaseModel):
+    row: int
+    full_name: str
+    reason: str
+
+class ContactBulkImportResult(BaseModel):
+    created: List[ContactResponse]
+    skipped: List[ContactImportSkipped]
+
+
+# --- SALE SCHEMAS ---
+class SaleCreate(BaseModel):
+    contact_id: UUID
+    jewellery_item: Optional[str] = None
+    gold_grams: float = Field(gt=0)
+    amount: Optional[float] = None
+    sale_date: Optional[datetime] = None
+    notes: Optional[str] = None
+
+class SaleResponse(BaseModel):
+    id: UUID
+    contact_id: UUID
+    campaign_id: Optional[UUID] = None
+    jewellery_item: Optional[str] = None
+    gold_grams: float
+    amount: Optional[float] = None
+    sale_date: Optional[datetime] = None
+    notes: Optional[str] = None
+    created_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+class SaleWithContact(BaseModel):
+    sale: SaleResponse
+    contact: ContactResponse
+
+
 # --- COMPANY SCHEMAS ---
 class CompanyBase(BaseModel):
     company_name: str

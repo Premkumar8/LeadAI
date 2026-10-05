@@ -198,7 +198,7 @@ export default function LeadsPage() {
         </div>
         <button 
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Create Deal</span>
@@ -403,7 +403,7 @@ export default function LeadsPage() {
                 <button
                   onClick={handleGenerateOutreach}
                   disabled={generatingOutreach}
-                  className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer shadow-md transition-all"
+                  className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-snow text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 cursor-pointer shadow-md transition-all"
                 >
                   <Sparkles size={14} className={generatingOutreach ? "animate-spin" : ""} />
                   <span>{generatingOutreach ? "Composing Copy..." : "Generate AI Outreach"}</span>
@@ -516,7 +516,7 @@ export default function LeadsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl"
                 >
                   Save Deal
                 </button>
@@ -618,7 +618,7 @@ export default function LeadsPage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

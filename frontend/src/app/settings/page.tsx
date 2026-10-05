@@ -74,7 +74,7 @@ export default function SettingsPage() {
             <button
               type="submit"
               disabled={saving}
-              className="w-full sm:w-auto px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
+              className="w-full sm:w-auto px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow font-semibold text-xs rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-md"
             >
               <Save size={14} />
               <span>{saving ? "Saving variables..." : "Save Configuration"}</span>

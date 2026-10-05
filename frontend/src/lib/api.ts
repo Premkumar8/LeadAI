@@ -92,6 +92,15 @@ export const api = {
     create: (body: any) => apiFetch("/contacts/", { method: "POST", json: body }),
     update: (id: string, body: any) => apiFetch(`/contacts/${id}`, { method: "PUT", json: body }),
     delete: (id: string) => apiFetch(`/contacts/${id}`, { method: "DELETE" }),
+    bulkImport: (body: { campaign_id?: string | null; contacts: any[] }) =>
+      apiFetch("/contacts/bulk", { method: "POST", json: body }),
+  },
+
+  // Sales (purchases recorded against existing customers)
+  sales: {
+    list: (contactId?: string) => apiFetch(contactId ? `/sales/?contact_id=${contactId}` : "/sales/"),
+    create: (body: any) => apiFetch("/sales/", { method: "POST", json: body }),
+    delete: (id: string) => apiFetch(`/sales/${id}`, { method: "DELETE" }),
   },
 
   // Leads

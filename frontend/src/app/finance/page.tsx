@@ -210,7 +210,7 @@ export default function FinancePage() {
               setShowAddModal(true);
             }
           }}
-          className="px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
+          className="px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-snow text-xs font-bold rounded-xl transition-all shadow-md shadow-amber-600/10 flex items-center gap-1.5 cursor-pointer"
         >
           <Plus size={16} />
           <span>Record Transaction</span>
@@ -541,7 +541,7 @@ export default function FinancePage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl"
                 >
                   Save Entry
                 </button>
@@ -640,7 +640,7 @@ export default function FinancePage() {
                 </button>
                 <button 
                   type="submit" 
-                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold rounded-xl"
+                  className="flex-1 py-2.5 bg-amber-600 hover:bg-amber-500 text-snow text-xs font-bold rounded-xl"
                 >
                   Save Changes
                 </button>

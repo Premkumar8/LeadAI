@@ -1,8 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Play, PhoneCall, CheckCircle2, Clock, Filter, Loader2, MessageSquareText, Search, MessageCircle } from "lucide-react";
+import { Play, PhoneCall, CheckCircle2, Clock, Filter, Loader2, MessageSquareText, Search, MessageCircle, UserPlus, FileSpreadsheet } from "lucide-react";
 import { api } from "@/lib/api";
+import AddCustomerModal from "@/components/customers/AddCustomerModal";
+import ImportCustomersModal from "@/components/customers/ImportCustomersModal";
 
 const PREDEFINED_REMARKS = [
   "Will visit",
@@ -44,6 +46,9 @@ export default function CampaignExecutionPage() {
   const [showBulkModal, setShowBulkModal] = useState(false);
   const [bulkMessage, setBulkMessage] = useState("");
   const [bulkIndex, setBulkIndex] = useState(0);
+
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showImportModal, setShowImportModal] = useState(false);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -154,12 +159,12 @@ export default function CampaignExecutionPage() {
             <div className="w-10 h-10 bg-amber-500/20 rounded-xl flex items-center justify-center border border-amber-500/30">
               <Play className="text-amber-400 fill-amber-400" size={20} />
             </div>
-            Campaign Execution
+            Customer
           </h1>
           <p className="text-slate-400 mt-2 text-sm">Rapid-fire telecalling, tracking and remarks updates.</p>
         </div>
         
-        <div className="flex items-center gap-3 bg-slate-900/50 p-2 rounded-2xl border border-slate-800 shadow-lg">
+        <div className="flex flex-wrap items-center gap-3 bg-slate-900/50 p-2 rounded-2xl border border-slate-800 shadow-lg">
           <Filter size={16} className="text-slate-400 ml-2" />
           <select 
             value={selectedCampaignId}
@@ -171,8 +176,39 @@ export default function CampaignExecutionPage() {
               <option key={camp.id} value={camp.id}>{camp.name}</option>
             ))}
           </select>
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-snow text-sm font-bold shadow-md shadow-amber-500/20 transition-all cursor-pointer whitespace-nowrap"
+          >
+            <UserPlus size={16} />
+            Add Customer
+          </button>
+          <button
+            onClick={() => setShowImportModal(true)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-snow text-sm font-bold shadow-md shadow-emerald-600/20 transition-all cursor-pointer whitespace-nowrap"
+          >
+            <FileSpreadsheet size={16} />
+            Import Excel
+          </button>
         </div>
       </header>
+
+      <AddCustomerModal
+        open={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        contacts={contacts}
+        campaigns={campaigns}
+        defaultCampaignId={selectedCampaignId}
+        onCreated={(c) => setContacts(prev => [c, ...prev])}
+      />
+      <ImportCustomersModal
+        open={showImportModal}
+        onClose={() => setShowImportModal(false)}
+        contacts={contacts}
+        campaigns={campaigns}
+        defaultCampaignId={selectedCampaignId}
+        onImported={(created) => setContacts(prev => [...created, ...prev])}
+      />
 
       {loading ? (
         <div className="flex items-center justify-center h-64 text-amber-400">
@@ -221,7 +257,7 @@ export default function CampaignExecutionPage() {
                   {selectedContacts.size > 0 && (
                     <button 
                       onClick={() => { setShowBulkModal(true); setBulkIndex(0); setBulkMessage(""); }}
-                      className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-green-500/20 transition-all animate-fade-in whitespace-nowrap"
+                      className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-snow px-4 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-green-500/20 transition-all animate-fade-in whitespace-nowrap"
                     >
                       <MessageCircle size={18} />
                       Bulk WhatsApp ({selectedContacts.size})
@@ -487,7 +523,7 @@ export default function CampaignExecutionPage() {
                       }
                       setBulkIndex(prev => prev + 1);
                     }}
-                    className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md shadow-green-500/20 transition-colors"
+                    className="bg-green-500 hover:bg-green-600 text-snow px-4 py-2 rounded-lg text-sm font-bold shadow-md shadow-green-500/20 transition-colors"
                   >
                     Send Next
                   </button>

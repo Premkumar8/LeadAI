@@ -169,7 +169,7 @@ export default function ProjectsPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 flex items-center gap-2 cursor-pointer w-fit"
+          className="bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-snow font-semibold text-sm px-4 py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 flex items-center gap-2 cursor-pointer w-fit"
         >
           <Plus size={16} />
           <span>Add Project / Product</span>
@@ -465,7 +465,7 @@ export default function ProjectsPage() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 cursor-pointer"
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-snow font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 cursor-pointer"
               >
                 Create Catalog Entry
               </button>
@@ -568,7 +568,7 @@ export default function ProjectsPage() {
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-white font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 cursor-pointer"
+                className="w-full bg-gradient-to-r from-amber-600 to-amber-600 hover:from-amber-500 hover:to-amber-500 text-snow font-semibold text-sm py-2.5 rounded-xl transition-all shadow-lg shadow-amber-600/10 cursor-pointer"
               >
                 Save Catalog Changes
               </button>
